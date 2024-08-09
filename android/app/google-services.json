@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "510036102889",
+    "project_id": "raipurhomenew",
+    "storage_bucket": "raipurhomenew.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510036102889:android:217f3b5432572df968aa78",
+        "android_client_info": {
+          "package_name": "com.raipurHomes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510036102889-82tphc7jol4bsuv4ocb6n0lrhjn2tp9h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.raipurHomes",
+            "certificate_hash": "88137c988419550f6383408ec1f930b6f2a92779"
+          }
+        },
+        {
+          "client_id": "510036102889-lttitj4lirgt9m97naapbviv9rf85u8c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj9FXIdU6xEIi2x8kxyLO0p3b5MLfjLD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510036102889-lttitj4lirgt9m97naapbviv9rf85u8c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "510036102889-c5f048s8ansgga0oltbgs789ghpqsnhc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.focusmedia.fmraipuromes"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

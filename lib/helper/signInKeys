@@ -1,0 +1,83 @@
+> Task :app:signingReport
+Variant: debug
+Config: debug
+Store: C:\Users\user\.android\debug.keystore
+Alias: AndroidDebugKey
+MD5: 1E:D0:3A:B4:7A:FB:8E:1F:B5:2E:EA:7E:EB:B2:BC:2D
+SHA1: 4E:97:3C:BC:7F:29:92:EE:52:CD:F6:62:66:93:B8:A0:1C:90:76:74
+SHA-256: 1A:47:B3:F4:71:B1:F7:53:6B:04:24:EB:C4:34:FA:61:5F:84:C7:29:09:28:76:30:07:FF:E4:D6:10:66:37:56
+Valid until: Friday, 27 February, 2054
+
+
+Variant: release
+Config: debug
+Store: C:\Users\user\.android\debug.keystore
+Alias: AndroidDebugKey
+MD5: 1E:D0:3A:B4:7A:FB:8E:1F:B5:2E:EA:7E:EB:B2:BC:2D
+SHA1: 4E:97:3C:BC:7F:29:92:EE:52:CD:F6:62:66:93:B8:A0:1C:90:76:74
+SHA-256: 1A:47:B3:F4:71:B1:F7:53:6B:04:24:EB:C4:34:FA:61:5F:84:C7:29:09:28:76:30:07:FF:E4:D6:10:66:37:56
+Valid until: Friday, 27 February, 2054
+
+
+Variant: profile
+Config: debug
+Store: C:\Users\user\.android\debug.keystore
+Alias: AndroidDebugKey
+MD5: 1E:D0:3A:B4:7A:FB:8E:1F:B5:2E:EA:7E:EB:B2:BC:2D
+SHA1: 4E:97:3C:BC:7F:29:92:EE:52:CD:F6:62:66:93:B8:A0:1C:90:76:74
+SHA-256: 1A:47:B3:F4:71:B1:F7:53:6B:04:24:EB:C4:34:FA:61:5F:84:C7:29:09:28:76:30:07:FF:E4:D6:10:66:37:56
+Valid until: Friday, 27 February, 2054
+
+
+Variant: debugAndroidTest
+Config: debug
+Store: C:\Users\user\.android\debug.keystore
+Alias: AndroidDebugKey
+MD5: 1E:D0:3A:B4:7A:FB:8E:1F:B5:2E:EA:7E:EB:B2:BC:2D
+SHA1: 4E:97:3C:BC:7F:29:92:EE:52:CD:F6:62:66:93:B8:A0:1C:90:76:74
+SHA-256: 1A:47:B3:F4:71:B1:F7:53:6B:04:24:EB:C4:34:FA:61:5F:84:C7:29:09:28:76:30:07:FF:E4:D6:10:66:37:56
+Valid until: Friday, 27 February, 2054
+
+
+> Task :app_settings:signingReport
+Variant: debugAndroidTest
+Config: debug
+Store: C:\Users\user\.android\debug.keystore
+Alias: AndroidDebugKey
+MD5: 1E:D0:3A:B4:7A:FB:8E:1F:B5:2E:EA:7E:EB:B2:BC:2D
+SHA1: 4E:97:3C:BC:7F:29:92:EE:52:CD:F6:62:66:93:B8:A0:1C:90:76:74
+SHA-256: 1A:47:B3:F4:71:B1:F7:53:6B:04:24:EB:C4:34:FA:61:5F:84:C7:29:09:28:76:30:07:FF:E4:D6:10:66:37:56
+Valid until: Friday, 27 February, 2054
+
+
+
+>keytool -genkey -v -keystore d:\raiurhomekey.jks -alias my_key_alias -keyalg RSA -keysize 2048 -validity 10000
+
+passwords : =====> 123456
+
+new signin key
+
+
+
+> Task :app:signingReport
+Variant: debug
+Config: debug
+Store: C:\Users\user\.android\debug.keystore
+Alias: AndroidDebugKey
+MD5: 3F:4E:EC:A1:E8:D5:CA:6C:A7:0A:03:CF:53:68:D9:29
+SHA1: 1A:E0:45:ED:FD:34:72:E8:AA:4C:B1:28:96:87:08:59:C0:95:8D:FC
+SHA-256: A2:3D:06:1D:4C:88:E5:A4:5C:07:5C:20:60:48:AD:88:7D:C6:FB:81:3F:C3:55:B2:9C:A6:63:F2:B3:D1:A0:72
+Valid until: Saturday, 30 May, 2054
+----------
+Variant: release
+Config: release
+Store: D:\Fm Projects\raipurhomes\android\raiurhomekey.jks
+Alias: my_key_alias
+MD5: E0:D8:83:2B:1B:C4:8D:AA:5E:EF:71:C5:88:27:D2:69
+SHA1: 88:13:7C:98:84:19:55:0F:63:83:40:8E:C1:F9:30:B6:F2:A9:27:79
+SHA-256: 75:A6:46:D4:5B:23:6E:82:46:4A:8C:53:75:DF:3F:A7:F3:85:E5:D9:16:6B:C1:B1:4B:E7:5F:AF:96:ED:B4:76
+Valid until: Saturday, 25 November, 2051
+
+
+
+
