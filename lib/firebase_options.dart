@@ -41,53 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCYDZjaS6AahpqPqoU-xIcIlxqL3b3o10o',
-    appId: '1:510036102889:web:41f33979bf1a54ec68aa78',
-    messagingSenderId: '510036102889',
-    projectId: 'raipurhomenew',
-    authDomain: 'raipurhomenew.firebaseapp.com',
-    storageBucket: 'raipurhomenew.appspot.com',
-    measurementId: 'G-HT8XLT6P02',
+    apiKey: 'AIzaSyBY_gc8BcJO8pFQpQp-pcXK5i42MVgpjnw',
+    appId: '1:632279561203:web:978cb3dc4544c10aab1886',
+    messagingSenderId: '632279561203',
+    projectId: 'raipurhomesapple-ffe83',
+    authDomain: 'raipurhomesapple-ffe83.firebaseapp.com',
+    storageBucket: 'raipurhomesapple-ffe83.appspot.com',
+    measurementId: 'G-4FB2VHJK37',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCj9FXIdU6xEIi2x8kxyLO0p3b5MLfjLD0',
-    appId: '1:510036102889:android:217f3b5432572df968aa78',
-    messagingSenderId: '510036102889',
-    projectId: 'raipurhomenew',
-    storageBucket: 'raipurhomenew.appspot.com',
+    apiKey: 'AIzaSyAMW0_mSmZEmYN4ihMpWdwfdZNRxrX-xq8',
+    appId: '1:632279561203:android:76be21609bd33a05ab1886',
+    messagingSenderId: '632279561203',
+    projectId: 'raipurhomesapple-ffe83',
+    storageBucket: 'raipurhomesapple-ffe83.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDv1tBuBZWAO5PrgQv5KG3B3lKvKodYQ5w',
-    appId: '1:510036102889:ios:d9788c66b631b06068aa78',
-    messagingSenderId: '510036102889',
-    projectId: 'raipurhomenew',
-    storageBucket: 'raipurhomenew.appspot.com',
-    androidClientId: '510036102889-82tphc7jol4bsuv4ocb6n0lrhjn2tp9h.apps.googleusercontent.com',
-    iosClientId: '510036102889-j0a69fql84h5c045flgantmg52m0tpjm.apps.googleusercontent.com',
-    iosBundleId: 'com.raipurHomes',
+    apiKey: 'AIzaSyASYc6FHrblmo4sjBL8Nv0LzJWbgYAiI_8',
+    appId: '1:632279561203:ios:0e06d87057007f0cab1886',
+    messagingSenderId: '632279561203',
+    projectId: 'raipurhomesapple-ffe83',
+    storageBucket: 'raipurhomesapple-ffe83.appspot.com',
+    iosBundleId: 'com.raipurHomesApple',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDv1tBuBZWAO5PrgQv5KG3B3lKvKodYQ5w',
-    appId: '1:510036102889:ios:bb9a18c0d6bfaeac68aa78',
-    messagingSenderId: '510036102889',
-    projectId: 'raipurhomenew',
-    storageBucket: 'raipurhomenew.appspot.com',
-    androidClientId: '510036102889-82tphc7jol4bsuv4ocb6n0lrhjn2tp9h.apps.googleusercontent.com',
-    iosClientId: '510036102889-c5f048s8ansgga0oltbgs789ghpqsnhc.apps.googleusercontent.com',
+    apiKey: 'AIzaSyASYc6FHrblmo4sjBL8Nv0LzJWbgYAiI_8',
+    appId: '1:632279561203:ios:a9a7dea1c387870bab1886',
+    messagingSenderId: '632279561203',
+    projectId: 'raipurhomesapple-ffe83',
+    storageBucket: 'raipurhomesapple-ffe83.appspot.com',
     iosBundleId: 'com.focusmedia.fmraipuromes',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyCYDZjaS6AahpqPqoU-xIcIlxqL3b3o10o',
-    appId: '1:510036102889:web:ec5ad25c28e1ecac68aa78',
-    messagingSenderId: '510036102889',
-    projectId: 'raipurhomenew',
-    authDomain: 'raipurhomenew.firebaseapp.com',
-    storageBucket: 'raipurhomenew.appspot.com',
-    measurementId: 'G-V1G10VL1P1',
+    apiKey: 'AIzaSyBY_gc8BcJO8pFQpQp-pcXK5i42MVgpjnw',
+    appId: '1:632279561203:web:1b465eef043f08b8ab1886',
+    messagingSenderId: '632279561203',
+    projectId: 'raipurhomesapple-ffe83',
+    authDomain: 'raipurhomesapple-ffe83.firebaseapp.com',
+    storageBucket: 'raipurhomesapple-ffe83.appspot.com',
+    measurementId: 'G-985ED9Y7C2',
   );
-
 }
