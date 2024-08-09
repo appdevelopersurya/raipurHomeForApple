@@ -1,4 +1,4 @@
-package com.raipurHomes
+package com.raipurHomesApple
 
 import io.flutter.embedding.android.FlutterActivity
 
