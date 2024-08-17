@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyDD5j15H5sCnWFzxmKD8qRd-_PB6xgWNw0</string>
+	<string>AIzaSyCL0O7j8CAD72DE1g14U0nHQnqLXodDjwc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>536554752194</string>
+	<string>1065514614314</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.focusmedia.fmraipuromes.RunnerTests</string>
+	<string>com.focusmedia.fmraipuromes</string>
 	<key>PROJECT_ID</key>
-	<string>raipurhomesproject</string>
+	<string>rprhomesapplemyhomes</string>
 	<key>STORAGE_BUCKET</key>
-	<string>raipurhomesproject.appspot.com</string>
+	<string>rprhomesapplemyhomes.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:536554752194:ios:6862270711522acd84135b</string>
+	<string>1:1065514614314:ios:b4f751f913dc3bfc06cd53</string>
 </dict>
 </plist>

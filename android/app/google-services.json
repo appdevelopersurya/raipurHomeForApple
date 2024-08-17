@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "632279561203",
-    "project_id": "raipurhomesapple-ffe83",
-    "storage_bucket": "raipurhomesapple-ffe83.appspot.com"
+    "project_number": "1065514614314",
+    "project_id": "rprhomesapplemyhomes",
+    "storage_bucket": "rprhomesapplemyhomes.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:632279561203:android:76be21609bd33a05ab1886",
+        "mobilesdk_app_id": "1:1065514614314:android:c2c210cfdecc5a8206cd53",
         "android_client_info": {
-          "package_name": "com.raipurHomesApple"
+          "package_name": "com.rprHomesAppleMyHomes"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAMW0_mSmZEmYN4ihMpWdwfdZNRxrX-xq8"
+          "current_key": "AIzaSyBfF5zTErXh8C5_h0_kjvKYV2DNn62X0Kc"
         }
       ],
       "services": {

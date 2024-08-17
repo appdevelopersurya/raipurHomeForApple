@@ -4,7 +4,6 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:fmraipuromes/constant/color.dart';
 import 'package:fmraipuromes/data/DataNew.dart';
