@@ -3,8 +3,12 @@ import 'package:fmraipuromes/utils/utils.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../../repository/persmissionHandler.dart';
+
 class LocationService {
   String? location;
+  final PermissionHandlerService _permissionHandler =
+      PermissionHandlerService();
 
   Future<String?> checkPermission() async {
     try {
@@ -13,37 +17,24 @@ class LocationService {
         return "Location services are disabled";
       }
 
-      var permission = await Geolocator.checkPermission();
+      // Check and request location permission using the permission handler service
+      bool isPermissionGranted =
+          await _permissionHandler.requestLocationPermission();
 
-      // Request permission if it is denied or denied forever
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
-        Utils.toastMessage("Permission denied!", warningColor);
-        permission = await Geolocator.requestPermission();
-        print("Permission after requesting: $permission");
-
-        // Recheck the permission status after requesting it
-        if (permission == LocationPermission.denied ||
-            permission == LocationPermission.deniedForever) {
-          location = "Permission Denied";
-          print("Permission crash error==> $location");
-          return location;
-        }
-      }
-
-      if (permission == LocationPermission.whileInUse ||
-          permission == LocationPermission.always) {
+      if (isPermissionGranted) {
         print("Permission approved==> $location");
         Utils.toastMessage("Permission Approved!", successColor);
 
         location = await _getLocation();
         return location;
+      } else {
+        Utils.toastMessage("Permission denied!", warningColor);
+        location = "Permission Denied";
+        print("Permission crash error==> $location");
+        return location;
       }
-
-      return "Unknown permission status";
     } catch (e) {
       print("Permission crash error==> ${e.toString()}");
-      // Utils.toastMessage(e.toString(), errorColor);
       return e.toString();
     }
   }
@@ -64,7 +55,6 @@ class LocationService {
       }
       return 'Coordinates: $coordinates\nAddress: Not available';
     } catch (e) {
-      // Utils.toastMessage(e.toString(), errorColor);
       return e.toString();
     }
   }

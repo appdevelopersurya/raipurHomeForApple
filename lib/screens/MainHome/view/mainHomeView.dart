@@ -11,6 +11,7 @@ import 'package:fmraipuromes/utils/CustomButton.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
+import '../../../repository/persmissionHandler.dart';
 import '../../Notification/view/notificationView.dart';
 import '../viewModal/mainHomeViewModal.dart';
 
@@ -23,9 +24,22 @@ class MainHomeView extends StatefulWidget {
 
 class _MainHomeViewState extends State<MainHomeView> {
   PageController _pageController = PageController(initialPage: 0);
+  final PermissionHandlerService _permissionHandler =
+      PermissionHandlerService();
+  Future<void> _requestPermissions() async {
+    bool allPermissionsGranted =
+        await _permissionHandler.requestAllPermissions();
+    if (allPermissionsGranted) {
+      print("All permissions granted!");
+    } else {
+    } else {
+      print("Some permissions were not granted.");
+    }
+  }
 
   @override
   void initState() {
+    _requestPermissions();
     _pageController = PageController(initialPage: 0);
     super.initState();
   }
