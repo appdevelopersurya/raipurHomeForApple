@@ -58,6 +58,11 @@ passwords : =====> 123456
 new signin key
 
 
+storePassword=123456
+keyPassword=123456
+keyAlias=my_key_alias
+storeFile=/Volumes/Macintosh HD - Data/FM Projects/raipurHomeForApple/lib/helper/raiurhomekey.jks
+
 
 > Task :app:signingReport
 Variant: debug

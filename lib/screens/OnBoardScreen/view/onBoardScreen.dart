@@ -156,31 +156,6 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     ),
                   ),
                 ),
-                Gap(size.height * 0.020),
-                _currentIndex == 2
-                    ? Text(
-                        "",
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelSmall!
-                            .copyWith(color: Colors.white),
-                      ) // Empty text if it's the last page
-                    : GestureDetector(
-                        // Change InkWell to GestureDetector for non-tappable "Skip" text
-                        onTap: () {
-                          box.write('is_logged_raipurHome', true);
-                          box.write('access_token_raipurHomes', "");
-                          Navigator.pushNamed(context,
-                              AppRoutes.homeMain); // Navigate to main screen
-                        },
-                        child: Text(
-                          "Skip",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelSmall!
-                              .copyWith(color: Colors.white),
-                        ),
-                      ),
               ],
             ))
       ]),
