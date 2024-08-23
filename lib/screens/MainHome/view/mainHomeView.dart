@@ -32,7 +32,6 @@ class _MainHomeViewState extends State<MainHomeView> {
     if (allPermissionsGranted) {
       print("All permissions granted!");
     } else {
-    } else {
       print("Some permissions were not granted.");
     }
   }

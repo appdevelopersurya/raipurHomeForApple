@@ -31,14 +31,15 @@
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to the camera to take photos and videos.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We need access to your location at all times.</string>
-	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
-	<dict>
-		<key>AIzaSyCizDeEokayOaW5qNJ5JJAA6xxYOhSFea8</key>
-		<string>The example App requires temporary access to the device's precise location.</string>
-	</dict>
+    <string>We need access to your location at all times to provide real-time notifications about new properties, open houses, and local market updates based on your location.</string>
+
+    <key>NSLocationTemporaryUsageDescriptionDictionary</key>
+    <dict>
+        <key>LocationAccuracyAuthorizationDescription</key>
+        <string>The app requires temporary access to your precise location to help you find properties nearby and navigate to selected properties or open houses.</string>
+    </dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when open.</string>
+    <string>This app needs access to your location to show nearby properties, open houses, and local amenities when the app is open.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need access to the microphone to record audio.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
