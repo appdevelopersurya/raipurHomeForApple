@@ -3,38 +3,52 @@ import 'package:fmraipuromes/utils/utils.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../../repository/persmissionHandler.dart';
-
 class LocationService {
   String? location;
-  final PermissionHandlerService _permissionHandler =
-      PermissionHandlerService();
 
   Future<String?> checkPermission() async {
     try {
+      // Check if location services are enabled
       if (!await Geolocator.isLocationServiceEnabled()) {
+        Utils.toastMessage("Location services are disabled", warningColor);
         await Geolocator.openLocationSettings();
         return "Location services are disabled";
       }
 
-      // Check and request location permission using the permission handler service
-      bool isPermissionGranted =
-          await _permissionHandler.requestLocationPermission();
+      // Check the current permission status
+      LocationPermission permission = await Geolocator.checkPermission();
 
-      if (isPermissionGranted) {
-        print("Permission approved==> $location");
+      // If permission is denied, request permission
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          Utils.toastMessage("Location permission denied", warningColor);
+          return "Permission Denied";
+        }
+      }
+
+      // If permission is permanently denied, display a message
+      if (permission == LocationPermission.deniedForever) {
+        Utils.toastMessage(
+            "Location permissions are permanently denied, we cannot request permissions.",
+            warningColor);
+        return "Location permissions are permanently denied";
+      }
+
+      // If permission is granted, get the location
+      if (permission == LocationPermission.whileInUse ||
+          permission == LocationPermission.always) {
         Utils.toastMessage("Permission Approved!", successColor);
 
         location = await _getLocation();
-        return location;
-      } else {
-        Utils.toastMessage("Permission denied!", warningColor);
-        location = "Permission Denied";
-        print("Permission crash error==> $location");
+        print("Permission approved==> $location");
         return location;
       }
+
+      return "Unexpected error occurred";
     } catch (e) {
       print("Permission crash error==> ${e.toString()}");
+      Utils.toastMessage("Error: ${e.toString()}", errorColor);
       return e.toString();
     }
   }

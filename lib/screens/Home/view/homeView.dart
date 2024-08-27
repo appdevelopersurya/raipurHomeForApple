@@ -318,24 +318,11 @@ class _HomeViewState extends State<HomeView> {
                     : ListView(
                         padding: EdgeInsets.zero,
                         children: [
-                          // const Padding(
-                          //   padding: EdgeInsets.all(8.0),
-                          //   child: YoutubeVideoPlayerCard(
-                          //     borderRadius: 12.0,
-                          //     url:
-                          //         "https://youtu.be/jWXxfFkwYuQ?si=jsSxACl0k5NZJEci",
-                          //     aspectRatio: 16 / 9,
-                          //     showControls: true,
-                          //     autoPlayVideo: false,
-                          //     disableDragSeek: false,
-                          //   ),
-                          // ),
-
                           FadeInDown(
                             child: SizedBox(
                               height: size.width >= 640
                                   ? size.height * 0.7
-                                  : size.height * 0.42,
+                                  : size.height * 0.4,
                               // color: Colors.red,
                               child: Stack(
                                 children: [
@@ -345,13 +332,13 @@ class _HomeViewState extends State<HomeView> {
                                       child: SizedBox(
                                         height: size.width >= 640
                                             ? size.height * 0.45
-                                            : size.height * 0.30,
+                                            : size.height * 0.23,
                                         width: size.width,
                                         child: CarouselSlider(
                                           options: CarouselOptions(
                                             height: size.width >= 640
                                                 ? size.height * 0.8
-                                                : size.height * 0.35,
+                                                : size.height * 0.32,
                                             // aspectRatio: size.width >= 640
                                             //     ? 16 / 9
                                             //     : 16 / 5,
@@ -362,7 +349,7 @@ class _HomeViewState extends State<HomeView> {
                                                 const Duration(
                                                     milliseconds: 600),
                                             autoPlayCurve: Curves.fastOutSlowIn,
-                                            viewportFraction: 1.13,
+                                            viewportFraction: 1.05,
                                           ),
                                           items: homeViewController
                                               .bannerDataModel.data
@@ -374,7 +361,7 @@ class _HomeViewState extends State<HomeView> {
                                               errorWidget: (context, url,
                                                       error) =>
                                                   Image.asset(
-                                                      "assets/png/rprHomeLogo.png"),
+                                                      "assets/png/rprNewLogo.png"),
                                             );
                                           }).toList(),
                                         ),
@@ -391,7 +378,7 @@ class _HomeViewState extends State<HomeView> {
                                   //     imageUrl:
                                   //         "https://i.postimg.cc/qv7SgJsy/cropped-Untitled-design-1-1.png",
                                   //     errorWidget: (context, url, error) =>
-                                  //         Image.asset("assets/png/rprHomeLogo.png"),
+                                  //         Image.asset("assets/png/rprNewLogo.png"),
                                   //   ),
                                   // ),
                                   searchSectionsHome(size, homeViewController),
@@ -467,7 +454,7 @@ class _HomeViewState extends State<HomeView> {
                           //                   item.sliderImg.toString(),
                           //               errorWidget: (context, url, error) =>
                           //                   Image.asset(
-                          //                       "assets/png/rprHomeLogo.png"),
+                          //                       "assets/png/rprNewLogo.png"),
                           //             ),
                           //           ),
                           //         );
@@ -2962,14 +2949,16 @@ class _HomeViewState extends State<HomeView> {
                                     FadeInDown(
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(12.0)),
                                           child: Image.asset(
                                             height: 80,
                                             width: 90,
                                             fit: BoxFit.cover,
-                                            "assets/png/rprHomeLogo.png",
+                                            "assets/png/rprNewLogo.png",
                                           ),
                                         ),
                                       ),
@@ -3301,7 +3290,7 @@ class _HomeViewState extends State<HomeView> {
   Positioned searchSectionsHome(
       Size size, HomeVIewController homeViewController) {
     return Positioned(
-      top: size.width >= 640 ? size.height * 0.35 : size.height * 0.25,
+      top: size.width >= 640 ? size.height * 0.35 : size.height * 0.21,
       right: 15,
       left: 15,
       child: InkWell(
@@ -4127,7 +4116,7 @@ class _HomeViewState extends State<HomeView> {
 //         child: PopularConstructorCard(
 //           size: size,
 //           name: 'Raipur Homes',
-//           image: "assets/png/rprHomeLogo.png",
+//           image: "assets/png/rprNewLogo.png",
 //           totalProjects: '15',
 //         ),
 //       );

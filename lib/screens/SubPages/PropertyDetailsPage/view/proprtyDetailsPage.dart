@@ -223,7 +223,7 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                                     },
                                     errorWidget: (context, error, stackTrace) {
                                       return Image.asset(
-                                          "assets/png/rprHomeLogo.png");
+                                          "assets/png/rprNewLogo.png");
                                     },
                                   )
                                 : InkWell(
@@ -241,7 +241,7 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                                                   errorWidget: (context, error,
                                                       stackTrace) {
                                                     return Image.asset(
-                                                        "assets/png/rprHomeLogo.png");
+                                                        "assets/png/rprNewLogo.png");
                                                   },
                                                   placeholder: (context, url) {
                                                     return Shimmer.fromColors(

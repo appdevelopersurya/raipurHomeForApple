@@ -147,7 +147,7 @@ class FeaturedPropertyCardForHome extends StatelessWidget {
                                 },
                                 errorWidget: (context, url, error) {
                                   return Image.asset(
-                                      "assets/png/rprHomeLogo.png");
+                                      "assets/png/rprNewLogo.png");
                                 },
                               )
                             : CarouselSlider(
@@ -179,7 +179,7 @@ class FeaturedPropertyCardForHome extends StatelessWidget {
                                         errorWidget:
                                             (context, error, stackTrace) {
                                           return Image.asset(
-                                              "assets/png/rprHomeLogo.png");
+                                              "assets/png/rprNewLogo.png");
                                         },
                                       ),
                                     )
@@ -712,7 +712,7 @@ class FeaturedPropertyCard extends StatelessWidget {
                           );
                         },
                         errorWidget: (context, url, error) {
-                          return Image.asset("assets/png/rprHomeLogo.png");
+                          return Image.asset("assets/png/rprNewLogo.png");
                         },
                       )
                     : CarouselSlider(
@@ -724,7 +724,7 @@ class FeaturedPropertyCard extends StatelessWidget {
                                 width: double.infinity,
                                 errorBuilder: (context, error, stackTrace) {
                                   return Image.asset(
-                                      "assets/png/rprHomeLogo.png");
+                                      "assets/png/rprNewLogo.png");
                                 },
                               ),
                             )
@@ -977,7 +977,7 @@ class FeaturedPropertyCardForMyProperty extends StatelessWidget {
                                 },
                                 errorWidget: (context, url, error) {
                                   return Image.asset(
-                                      "assets/png/rprHomeLogo.png");
+                                      "assets/png/rprNewLogo.png");
                                 },
                               )
                             : CarouselSlider(
@@ -1007,7 +1007,7 @@ class FeaturedPropertyCardForMyProperty extends StatelessWidget {
                                         errorWidget:
                                             (context, error, stackTrace) {
                                           return Image.asset(
-                                              "assets/png/rprHomeLogo.png");
+                                              "assets/png/rprNewLogo.png");
                                         },
                                       ),
                                     )

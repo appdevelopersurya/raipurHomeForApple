@@ -149,12 +149,12 @@ class _BlogViewDetailsState extends State<BlogViewDetails> {
                           placeholder: (context, url) {
                             return Image.asset(
                                 fit: BoxFit.cover,
-                                "assets/png/rprHomeLogo.png");
+                                "assets/png/rprNewLogo.png");
                           },
                           errorWidget: (context, url, error) {
                             return Image.asset(
                                 fit: BoxFit.cover,
-                                "assets/png/rprHomeLogo.png");
+                                "assets/png/rprNewLogo.png");
                           },
                         ),
                         // Add the overlay with opacity
@@ -366,7 +366,7 @@ class _BlogViewDetailsState extends State<BlogViewDetails> {
                                                           url, error) {
                                                         return Image.asset(
                                                             fit: BoxFit.cover,
-                                                            "assets/png/rprHomeLogo.png");
+                                                            "assets/png/rprNewLogo.png");
                                                       },
                                                     ),
                                                   ),

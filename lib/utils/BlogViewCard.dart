@@ -51,11 +51,11 @@ class BlogViewCard extends StatelessWidget {
                   // "https://www.raipurhomes.com/uploads/blog/43331720932311.jpg",
                   placeholder: (context, url) {
                     return Image.asset(
-                        fit: BoxFit.cover, "assets/png/rprHomeLogo.png");
+                        fit: BoxFit.cover, "assets/png/rprNewLogo.png");
                   },
                   errorWidget: (context, url, error) {
                     return Image.asset(
-                        fit: BoxFit.cover, "assets/png/rprHomeLogo.png");
+                        fit: BoxFit.cover, "assets/png/rprNewLogo.png");
                   },
                 ),
               ),

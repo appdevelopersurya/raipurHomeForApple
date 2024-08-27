@@ -72,7 +72,7 @@ class _HomeAppBarState extends State<HomeAppBar>
                     height: 95,
                     width: 100,
                     fit: BoxFit.cover,
-                    "assets/png/rprHomeLogo.png",
+                    "assets/png/rprNewLogo.png",
                   ),
                 ),
               ],

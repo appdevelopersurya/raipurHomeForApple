@@ -74,14 +74,14 @@ class _Splash_ScreenState extends State<Splash_Screen> {
           AspectRatio(
               aspectRatio: 16 / 9,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                padding: const EdgeInsets.symmetric(horizontal: 80.0),
                 child: FadeInUp(
                   curve: Curves.bounceInOut,
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.0),
                         image: const DecorationImage(
-                            image: AssetImage("assets/png/rprHomeLogo.png"),
+                            image: AssetImage("assets/png/rprNewLogo.png"),
                             fit: BoxFit.fill)),
                   ),
                 ),

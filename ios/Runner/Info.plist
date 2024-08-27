@@ -26,30 +26,44 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>We need access to Bluetooth to connect to devices.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>We need access to the camera to take photos and videos.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-    <string>We need access to your location at all times to provide real-time notifications about new properties, open houses, and local market updates based on your location.</string>
 
-    <key>NSLocationTemporaryUsageDescriptionDictionary</key>
-    <dict>
-        <key>LocationAccuracyAuthorizationDescription</key>
-        <string>The app requires temporary access to your precise location to help you find properties nearby and navigate to selected properties or open houses.</string>
-    </dict>
+	<!-- Permission Descriptions for Real Estate App -->
+
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Bluetooth access is required to connect to smart devices in homes listed on our platform, such as smart locks or security systems.</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>The camera is used to capture property images and profile pictures to enhance your property listings and user profile.</string>
+
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location access is required to provide real-time updates on nearby properties, open houses, and market trends based on your current location, even when the app is in the background.</string>
+
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>LocationAccuracyAuthorizationDescription</key>
+		<string>The app requires temporary access to your precise location to find properties near you and navigate to selected properties or open houses.</string>
+	</dict>
+
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs access to your location to show nearby properties, open houses, and local amenities when the app is open.</string>
+	<string>Location access is needed to show nearby properties and amenities while the app is in use, providing a better property search experience.</string>
+
 	<key>NSMicrophoneUsageDescription</key>
-	<string>We need access to the microphone to record audio.</string>
+	<string>The microphone is needed for voice search functionality, allowing users to search for properties using voice commands.</string>
+
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>We need access to the photo library to save photos.</string>
+	<string>Access to the photo library is needed to save images of properties and profile pictures to your device for offline viewing or editing.</string>
+
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need access to the photo library to read your photos.</string>
+	<string>Access to your photo library is required to upload images of properties and your profile picture to enhance your listings and profile.</string>
+
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>We need access to speech recognition to provide voice search functionality.</string>
+	<string>Speech recognition is used to provide voice search capabilities, enabling a hands-free property search experience.</string>
+
 	<key>NSUserNotificationUsageDescription</key>
-	<string>We need permission to send notifications.</string>
+	<string>Notifications are required to alert you about new properties, market updates, and reminders for open houses based on your preferences.</string>
+
+	<!-- General App Configuration -->
+
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

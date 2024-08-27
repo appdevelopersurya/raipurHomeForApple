@@ -34,7 +34,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
     Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/onBoardImage1.jpg"),
+          image: AssetImage("assets/gif/rprIntro1.gif"),
           fit: BoxFit.cover,
         ),
       ),
@@ -42,18 +42,17 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
     Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("assets/images/onBoardImage4.jpg"),
-            fit: BoxFit.cover),
+            image: AssetImage("assets/gif/rprIntro2.gif"), fit: BoxFit.cover),
       ),
     ),
-    Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/onBoardImage3.jpg"),
-          fit: BoxFit.cover,
-        ),
-      ),
-    ),
+    // Container(
+    //   decoration: const BoxDecoration(
+    //     image: DecorationImage(
+    //       image: AssetImage("assets/images/onBoardImage3.jpg"),
+    //       fit: BoxFit.cover,
+    //     ),
+    //   ),
+    // ),
   ];
 
   @override
@@ -82,35 +81,64 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
             left: 20,
             child: Column(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(12.0)),
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    _currentIndex == 0
-                        ? "Unlock your dream home with ease. Explore, save, connect"
-                        : _currentIndex == 1
-                            ? "Discover homes that match your style and budget. Save your favorites, and connect with real estate experts."
-                            : "Get personalized recommendations and find your perfect home. Connect with professionals to assist you.",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(color: Colors.white),
+                // Container(
+                //   decoration: BoxDecoration(
+                //       color: Colors.black.withOpacity(0.5),
+                //       borderRadius: BorderRadius.circular(12.0)),
+                //   child: Text(
+                //     textAlign: TextAlign.center,
+                //     _currentIndex == 0
+                //         ? "Unlock your dream home with ease. Explore, save, connect"
+                //         : _currentIndex == 1
+                //             ? "Discover homes that match your style and budget. Save your favorites, and connect with real estate experts."
+                //             : "Get personalized recommendations and find your perfect home. Connect with professionals to assist you.",
+                //     style: Theme.of(context)
+                //         .textTheme
+                //         .titleSmall!
+                //         .copyWith(color: Colors.white),
+                //   ),
+                // ),
+                // Gap(size.height * 0.010),
+                // Text(
+                //   textAlign: TextAlign.center,
+                //   _currentIndex == 0
+                //       ? "Discover your dream home hassle-free with our intuitive onboarding. Explore listings, save favorites, and connect with experts effortlessly."
+                //       : _currentIndex == 1
+                //           ? "Easily navigate through various home listings, save your favorites, and get expert advice."
+                //           : "Enjoy a seamless experience in finding your ideal home. Connect directly with agents for more details.",
+                //   style: Theme.of(context)
+                //       .textTheme
+                //       .labelSmall!
+                //       .copyWith(color: hintColor, fontSize: 12.0),
+                // ),
+                // Gap(size.height * 0.020),
+
+                InkWell(
+                  onTap: () {
+                    _pageController.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
+                    if (_currentIndex == 1) {
+                      Navigator.pushNamed(context, AppRoutes.loginNumber);
+                    }
+                  },
+                  child: Container(
+                    width: size.width,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: secondaryColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(_currentIndex == 1 ? "Get Started" : "Next",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(color: Colors.white)),
+                    ),
                   ),
-                ),
-                Gap(size.height * 0.010),
-                Text(
-                  textAlign: TextAlign.center,
-                  _currentIndex == 0
-                      ? "Discover your dream home hassle-free with our intuitive onboarding. Explore listings, save favorites, and connect with experts effortlessly."
-                      : _currentIndex == 1
-                          ? "Easily navigate through various home listings, save your favorites, and get expert advice."
-                          : "Enjoy a seamless experience in finding your ideal home. Connect directly with agents for more details.",
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelSmall!
-                      .copyWith(color: hintColor, fontSize: 12.0),
                 ),
                 Gap(size.height * 0.020),
                 Padding(
@@ -128,34 +156,32 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     ),
                   ),
                 ),
-                Gap(size.height * 0.020),
-                InkWell(
-                  onTap: () {
-                    _pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.ease,
-                    );
-                    if (_currentIndex == 2) {
-                      Navigator.pushNamed(context, AppRoutes.loginNumber);
-                    }
-                  },
-                  child: Container(
-                    width: size.width,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: secondaryColor,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(_currentIndex == 2 ? "Get Started" : "Next",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium!
-                              .copyWith(color: Colors.white)),
-                    ),
-                  ),
-                ),
+
+                // Gap(size.height * 0.020),
+                // _currentIndex == 1
+                //     ? Text(
+                //         "",
+                //         style: Theme.of(context)
+                //             .textTheme
+                //             .labelSmall!
+                //             .copyWith(color: Colors.white),
+                //       ) // Empty text if it's the last page
+                //     : GestureDetector(
+                //         // Change InkWell to GestureDetector for non-tappable "Skip" text
+                //         onTap: () {
+                //           box.write('is_logged_raipurHome', true);
+                //           box.write('access_token_raipurHomes', "");
+                //           Navigator.pushNamed(context,
+                //               AppRoutes.homeMain); // Navigate to main screen
+                //         },
+                //         child: Text(
+                //           "Skip",
+                //           style: Theme.of(context)
+                //               .textTheme
+                //               .labelSmall!
+                //               .copyWith(color: Colors.white),
+                //         ),
+                //       ),
               ],
             ))
       ]),

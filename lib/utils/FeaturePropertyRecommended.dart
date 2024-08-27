@@ -63,7 +63,7 @@ class FeaturePropertyRecommended extends StatelessWidget {
                         return const Center(child: CircularProgressIndicator());
                       },
                       errorWidget: (context, url, error) =>
-                          Image.asset("assets/png/rprHomeLogo.png"),
+                          Image.asset("assets/png/rprNewLogo.png"),
                     ),
                   ),
                 ),

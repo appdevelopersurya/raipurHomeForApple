@@ -138,7 +138,7 @@ class _NotificationViewState extends State<NotificationView> {
                                     )),
                             leading: const CircleAvatar(
                               backgroundImage:
-                                  AssetImage("assets/png/rprHomeLogo.png"),
+                                  AssetImage("assets/png/rprNewLogo.png"),
                             ),
                             onTap: () {
                               // Handle notification tap

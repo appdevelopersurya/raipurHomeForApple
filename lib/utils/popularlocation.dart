@@ -53,7 +53,7 @@ class PopularLocation extends StatelessWidget {
                     fit: BoxFit.cover,
                     errorWidget: (context, url, error) {
                       return Image.asset(
-                        "assets/png/rprHomeLogo.png",
+                        "assets/png/rprNewLogo.png",
                         width: 100,
                         height: 100,
                       );
