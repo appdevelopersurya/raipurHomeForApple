@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fmraipuromes/repository/counter_provider.dart';
@@ -45,20 +46,6 @@ Future<void> main() async {
   PushNotifications.init();
   PushNotifications.firebaseInitial();
   PushNotifications.isTokenRefreshed();
-
-  try {
-    /// Initialize Ip Address
-    var ipAddress = IpAddress(type: RequestType.json);
-
-    /// Get the IpAddress based on requestType.
-    dynamic data = await ipAddress.getIpAddress();
-    String deviceIp = data["ip"].toString();
-    box.write("rprHomesDeviceIP", deviceIp);
-    print("ASDFG======>  ${data["ip"].toString()}");
-  } on IpAddressException catch (exception) {
-    /// Handle the exception.
-    print(exception.message);
-  }
 
   runApp(const MyApp());
   // runApp(DevicePreview(

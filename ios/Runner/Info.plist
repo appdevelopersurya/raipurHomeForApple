@@ -71,6 +71,10 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
+
+	<key>NSUserTrackingUsageDescription</key>
+    <string>We use your IP address to track the number of property visits in our app to improve your browsing experience and provide relevant property recommendations.</string>
+
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>

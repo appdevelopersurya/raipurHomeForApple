@@ -1,4 +1,4 @@
-package com.raipurHomes // Replace with your actual package name
+package com.rprHomesAppleMyHomes // Replace with your actual package name
 
 import android.Manifest
 import android.content.pm.PackageManager

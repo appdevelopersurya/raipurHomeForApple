@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fmraipuromes/app/routes/routes.dart';
@@ -9,6 +12,7 @@ import 'package:fmraipuromes/screens/LatestProperty/view/latestPropertyView.dart
 import 'package:fmraipuromes/screens/Profile/view/ProfileView.dart';
 import 'package:fmraipuromes/utils/CustomButton.dart';
 import 'package:gap/gap.dart';
+import 'package:get_ip_address/get_ip_address.dart';
 import 'package:provider/provider.dart';
 
 import '../../../repository/persmissionHandler.dart';
@@ -39,8 +43,42 @@ class _MainHomeViewState extends State<MainHomeView> {
   @override
   void initState() {
     _requestPermissions();
+    getNetworkIP();
     _pageController = PageController(initialPage: 0);
     super.initState();
+  }
+
+  Future<void> getNetworkIP() async {
+    try {
+      if (Platform.isIOS) {
+        // iOS-specific logic
+        final status =
+            await AppTrackingTransparency.requestTrackingAuthorization();
+        if (status == TrackingStatus.authorized) {
+          await fetchIpAddress();
+        } else {
+          print("User denied permission for tracking on iOS.");
+        }
+      } else if (Platform.isAndroid) {
+        // Android-specific logic (ATT is not applicable)
+        await fetchIpAddress();
+      } else {
+        print("Unsupported platform");
+      }
+    } on IpAddressException catch (exception) {
+      /// Handle the exception.
+      print("IP Address Error: ${exception.message}");
+    } catch (e) {
+      print("Unexpected Error: $e");
+    }
+  }
+
+  Future<void> fetchIpAddress() async {
+    var ipAddress = IpAddress(type: RequestType.json);
+    dynamic data = await ipAddress.getIpAddress();
+    String deviceIp = data["ip"].toString();
+    box.write("rprHomesDeviceIP", deviceIp);
+    print("Device IP Address: ${data["ip"].toString()}");
   }
 
   @override
