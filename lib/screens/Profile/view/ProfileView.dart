@@ -305,17 +305,31 @@ class _ProfileViewState extends State<ProfileView> {
                       const Divider(),
                       ProfileCard(
                           onTap: () {
-                            Share.share(
-                                "🏡 Discover Your Dream Home with Raipur Homes! 🏡"
-                                "\nLooking for a new place to call home? Explore a wide range of properties and houses right at your fingertips with Raipur Homes!"
-                                "\n\n✨ Key Features:"
-                                "\n🔍 Search Effortlessly: Find properties that match your criteria with our easy-to-use search filters."
-                                "\n📸 High-Quality Photos: Browse through high-resolution images to get a real feel of your potential new home."
-                                "\n🗺️ Interactive Maps: Explore neighborhoods and see what's around your future home."
-                                "\n💬 Instant Communication: Connect with property owners through the app."
-                                "\n💼 Exclusive Listings: Get access to listings you won't find anywhere else."
-                                "\n\nReady to find your dream home? Download Raipur Homes now and start your journey to a new home!"
-                                "\n🔗https://play.google.com/store/apps/details?id=com.raipurHomes");
+                            if (Platform.isAndroid) {
+                              Share.share(
+                                  "🏡 Discover Your Dream Home with Raipur Homes! 🏡"
+                                  "\nLooking for a new place to call home? Explore a wide range of properties and houses right at your fingertips with Raipur Homes!"
+                                  "\n\n✨ Key Features:"
+                                  "\n🔍 Search Effortlessly: Find properties that match your criteria with our easy-to-use search filters."
+                                  "\n📸 High-Quality Photos: Browse through high-resolution images to get a real feel of your potential new home."
+                                  "\n🗺️ Interactive Maps: Explore neighborhoods and see what's around your future home."
+                                  "\n💬 Instant Communication: Connect with property owners through the app."
+                                  "\n💼 Exclusive Listings: Get access to listings you won't find anywhere else."
+                                  "\n\nReady to find your dream home? Download Raipur Homes now and start your journey to a new home!"
+                                  "\n🔗https://play.google.com/store/apps/details?id=com.raipurHomes");
+                            } else {
+                              Share.share(
+                                  "🏡 Discover Your Dream Home with Raipur Homes! 🏡"
+                                  "\nLooking for a new place to call home? Explore a wide range of properties and houses right at your fingertips with Raipur Homes!"
+                                  "\n\n✨ Key Features:"
+                                  "\n🔍 Search Effortlessly: Find properties that match your criteria with our easy-to-use search filters."
+                                  "\n📸 High-Quality Photos: Browse through high-resolution images to get a real feel of your potential new home."
+                                  "\n🗺️ Interactive Maps: Explore neighborhoods and see what's around your future home."
+                                  "\n💬 Instant Communication: Connect with property owners through the app."
+                                  "\n💼 Exclusive Listings: Get access to listings you won't find anywhere else."
+                                  "\n\nReady to find your dream home? Download Raipur Homes now and start your journey to a new home!"
+                                  "\n🔗https://apps.apple.com/in/app/raipur-homes/id6636486319");
+                            }
                           },
                           title: "Share App",
                           leading: SvgPicture.asset(

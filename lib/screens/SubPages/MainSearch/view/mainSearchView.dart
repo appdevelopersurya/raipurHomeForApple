@@ -278,8 +278,8 @@ class _MainFilterState extends State<MainFilter> {
                           ).format(int.parse(filterController.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
                               "\n📏 Size : ${filterController.allPropertyModel.data?[index].size.toString()} SQFT"
                               "\n\nDiscover this fantastic property! Located in a prime area, it offers excellent value with plenty of space to suit your needs. Click the link to learn more and share with your friends!"
-                              "\n\nCheck out though this link :"
-                              "\nhttps://play.google.com/store/apps/details?id=com.raipurHomes");
+                              "\n\nCheck out through this link :"
+                              "\nhttps://www.raipurhomes.com/property-details/${filterController.allPropertyModel.data?[index].titleSlug.toString()}-${filterController.allPropertyModel.data?[index].serviceId.toString()}");
                         },
                         onTapCall: () async => await ContactFeatures()
                             .launchCalling(
@@ -302,7 +302,9 @@ class _MainFilterState extends State<MainFilter> {
                                   locale: 'HI',
                                   symbol: AppText.rupeeSymbol,
                                 ).format(int.parse(filterController.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
-                                "\n📏 Size : ${filterController.allPropertyModel.data?[index].size.toString()} SQFT"),
+                                "\n📏 Size : ${filterController.allPropertyModel.data?[index].size.toString()} SQFT"
+                                "\n\nProperty Link Here:"
+                                "\nhttps://www.raipurhomes.com/property-details/${filterController.allPropertyModel.data?[index].titleSlug.toString()}-${filterController.allPropertyModel.data?[index].serviceId.toString()}"),
                         onTap: () => Navigator.pushNamed(
                             context, AppRoutes.propertyDetailView,
                             arguments: filterController

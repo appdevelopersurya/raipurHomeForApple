@@ -89,7 +89,7 @@ class _VerifyOTPViewState extends State<VerifyOTPView> {
                   bottomRight: Radius.circular(20.0),
                 ),
                 image: DecorationImage(
-                  image: AssetImage('assets/images/otpTopImage.jpg'),
+                  image: AssetImage('assets/gif/sli2.gif'),
                   fit: BoxFit.cover,
                 ),
               ),

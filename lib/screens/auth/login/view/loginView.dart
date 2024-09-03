@@ -52,7 +52,7 @@ class _LoginViewState extends State<LoginView> {
                     bottomRight: Radius.circular(20.0),
                   ),
                   image: DecorationImage(
-                    image: AssetImage('assets/images/loginTopImg.jpg'),
+                    image: AssetImage('assets/gif/sli1.gif'),
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -8,15 +8,19 @@ import 'package:fmraipuromes/data/modal/postPropertyResponseModel.dart';
 import 'package:fmraipuromes/helper/GetStorageHelper.dart';
 import 'package:fmraipuromes/repository/getImageFromUser.dart';
 import 'package:fmraipuromes/screens/SubPages/PostProperty/viewModel/postPropertyViewModel.dart';
+import 'package:fmraipuromes/screens/SubPages/Support/supportViewModel.dart';
 import 'package:fmraipuromes/utils/CustomButton.dart';
 import 'package:fmraipuromes/utils/CustomTextInput.dart';
 import 'package:fmraipuromes/utils/HomeTitlesHeading.dart';
 import 'package:fmraipuromes/utils/NormalAppBar.dart';
 import 'package:fmraipuromes/utils/futureLoaderNew.dart';
 import 'package:fmraipuromes/utils/utils.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../repository/contactFeatures.dart';
 
 class PostProperty extends StatefulWidget {
   const PostProperty({super.key});
@@ -36,8 +40,11 @@ class _PostPropertyState extends State<PostProperty> {
   _fetchToolData() {
     final postPropertyController =
         Provider.of<PostPropertyViewModel>(context, listen: false);
+    final supportViewController =
+        Provider.of<SupportViewModel>(context, listen: false);
     if (mounted) {
       postPropertyController.fetchFilterTools();
+      supportViewController.getContactDetails();
     }
   }
 
@@ -51,6 +58,7 @@ class _PostPropertyState extends State<PostProperty> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final postPropertyController = Provider.of<PostPropertyViewModel>(context);
+    final supportViewController = Provider.of<SupportViewModel>(context);
     return WillPopScope(
       onWillPop: () async {
         final imageController = context.read<GetImageFromUser>();
@@ -68,6 +76,142 @@ class _PostPropertyState extends State<PostProperty> {
           padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 20),
           physics: const BouncingScrollPhysics(),
           children: [
+            Container(
+              width: size.width,
+              height: size.height * 0.23,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  image: const DecorationImage(
+                      image: AssetImage("assets/gif/postprorty_sli1.gif"),
+                      fit: BoxFit.cover),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      blurRadius: 3,
+                      offset: const Offset(0, 2),
+                    )
+                  ]),
+              child: Stack(
+                children: [
+                  Positioned(
+                      bottom: 5,
+                      right: 0,
+                      left: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              ContactFeatures().launchCalling(
+                                  context,
+                                  supportViewController.contactUsDataModel.data
+                                          ?.enquiryNumber
+                                          .toString()
+                                          .trim() ??
+                                      "");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: accentColor),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.call,
+                                      size: 20,
+                                      color: Colors.white,
+                                    ),
+                                    const Gap(5),
+                                    Text("Call Now",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall!
+                                            .copyWith(color: Colors.white)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Gap(5),
+                          InkWell(
+                            onTap: () {
+                              ContactFeatures().launchWhatsapp(
+                                  context,
+                                  supportViewController.contactUsDataModel.data
+                                          ?.enquiryNumber
+                                          .toString()
+                                          .trim() ??
+                                      "",
+                                  "Hi, I need help with posting a property through this app. Can you guide me on how to do it?");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: accentColor),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const FaIcon(
+                                      FontAwesomeIcons.whatsapp,
+                                      size: 20,
+                                      color: Colors.white,
+                                    ),
+                                    const Gap(5),
+                                    Text("WhatsApp Now",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall!
+                                            .copyWith(color: Colors.white)),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ))
+                ],
+              ),
+            ),
+            const Gap(10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 1, // Adjust the height as needed
+                    color: Colors.grey, // Set the color for the line
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    "Or",
+                    style: Theme.of(context).textTheme.labelSmall,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    height: 1, // Adjust the height as needed
+                    color: Colors.grey, // Set the color for the line
+                  ),
+                ),
+              ],
+            ),
+            const Gap(10),
+            Text(
+              textAlign: TextAlign.center,
+              "Post By Self",
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(color: accentColor),
+            ),
+            const Gap(10),
             Text(
               "Basic Info",
               style: Theme.of(context)
@@ -123,36 +267,42 @@ class _PostPropertyState extends State<PostProperty> {
                     const SubPageTitlesHeading3(
                         title: "Category", mandatory: true),
                     const Gap(10.0),
-                    DropdownSearch<MenuItem>(
-                      dropdownBuilder: (context, selectedItem) {
-                        return Text(
-                          selectedItem?.label ?? "Select Category",
-                          style: Theme.of(context).textTheme.labelSmall,
-                        );
-                      },
-                      items: categoryList,
-                      popupProps: PopupProps.menu(
-                        itemBuilder: (context, item, isSelected) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15.0, vertical: 5.0),
-                            child: Text(
-                              item.label ?? "",
-                              style: Theme.of(context).textTheme.labelSmall,
-                            ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: DropdownSearch<MenuItem>(
+                        dropdownBuilder: (context, selectedItem) {
+                          return Text(
+                            selectedItem?.label ?? "Select Category",
+                            style: Theme.of(context).textTheme.labelSmall,
                           );
                         },
-                        fit: FlexFit.loose,
+                        items: categoryList,
+                        popupProps: PopupProps.menu(
+                          itemBuilder: (context, item, isSelected) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0, vertical: 5.0),
+                              child: Text(
+                                item.label ?? "",
+                                style: Theme.of(context).textTheme.labelSmall,
+                              ),
+                            );
+                          },
+                          fit: FlexFit.loose,
+                        ),
+                        onChanged: (MenuItem? data) {
+                          postPropertyController.onCategorySelected(data!);
+                          print(
+                              "selected cat===> ${postPropertyController.selectedCategory?.label}");
+                        },
+                        itemAsString: (MenuItem item) {
+                          return item.label ?? "";
+                        },
+                        selectedItem: postPropertyController.selectedCategory,
                       ),
-                      onChanged: (MenuItem? data) {
-                        postPropertyController.onCategorySelected(data!);
-                        print(
-                            "selected cat===> ${postPropertyController.selectedCategory?.label}");
-                      },
-                      itemAsString: (MenuItem item) {
-                        return item.label ?? "";
-                      },
-                      selectedItem: postPropertyController.selectedCategory,
                     ),
                   ],
                 )),

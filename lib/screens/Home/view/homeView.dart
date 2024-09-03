@@ -822,8 +822,8 @@ class _HomeViewState extends State<HomeView> {
                                           ).format(int.parse(value.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
                                               "\n📏 Size : ${value.allPropertyModel.data?[index].size.toString()} SQFT"
                                               "\n\nDiscover this fantastic property! Located in a prime area, it offers excellent value with plenty of space to suit your needs. Click the link to learn more and share with your friends!"
-                                              "\n\nCheck out though this link :"
-                                              "\nhttps://play.google.com/store/apps/details?id=com.raipurHomes");
+                                              "\n\nCheck out through this link :"
+                                              "\nhttps://www.raipurhomes.com/property-details/${value.allPropertyModel.data?[index].titleSlug.toString()}-${value.allPropertyModel.data?[index].serviceId.toString()}");
                                         },
                                         onTapCall: () async =>
                                             await ContactFeatures()
@@ -851,7 +851,9 @@ class _HomeViewState extends State<HomeView> {
                                                   locale: 'HI',
                                                   symbol: AppText.rupeeSymbol,
                                                 ).format(int.parse(value.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
-                                                "\n📏 Size : ${value.allPropertyModel.data?[index].size.toString()} SQFT"),
+                                                "\n📏 Size : ${value.allPropertyModel.data?[index].size.toString()} SQFT"
+                                                "\n\nProperty Link Here:"
+                                                "\nhttps://www.raipurhomes.com/property-details/${value.allPropertyModel.data?[index].titleSlug.toString()}-${value.allPropertyModel.data?[index].serviceId.toString()}"),
                                         onTapFavorite: () {
                                           if (box.read(
                                                   "access_token_raipurHomes") ==
@@ -3719,6 +3721,19 @@ class _HomeViewState extends State<HomeView> {
                         print("The $option was selected");
                         searchController.text = option.toString();
                         setState(() {});
+
+                        Navigator.pushNamed(
+                          context,
+                          AppRoutes.mainFilter,
+                          arguments: PassFilterModel(
+                              id: 4,
+                              logLate: option.toString(),
+                              title: "Main Filter"),
+                        ).whenComplete(() =>
+                            context.read<GetFilterTools>().clearAllFilters());
+                        context.read<GetFilterTools>().setSearchKeyword(
+                            _searchController.text.toString() ?? "");
+
                         KeyboardUtils.unFocus(context);
                       },
                       fieldViewBuilder:

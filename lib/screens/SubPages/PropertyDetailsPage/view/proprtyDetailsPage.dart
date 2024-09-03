@@ -312,8 +312,8 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                                       ).format(int.parse(propertyDetailsPage.porpertyDetailsDataModel.data?.pricing.toString() ?? ''))}"
                                           "\n📏 Size : ${propertyDetailsPage.porpertyDetailsDataModel.data?.size.toString()} SQFT"
                                           "\n\nDiscover this fantastic property! Located in a prime area, it offers excellent value with plenty of space to suit your needs. Click the link to learn more and share with your friends!"
-                                          "\n\nCheck out though this link :"
-                                          "\nhttps://play.google.com/store/apps/details?id=com.raipurHomes");
+                                          "\n\nProperty Link Here:"
+                                          "\nhttps://www.raipurhomes.com/property-details/${propertyDetailsPage.porpertyDetailsDataModel.data?.titleSlug.toString()}-${propertyDetailsPage.porpertyDetailsDataModel.data?.serviceId.toString()}");
                                     },
                                     child: const CircleAvatar(
                                       radius: 18,
@@ -2342,7 +2342,9 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                                   locale: 'HI',
                                   symbol: AppText.rupeeSymbol,
                                 ).format(int.parse(propertyDetailsPage.porpertyDetailsDataModel.data?.pricing.toString() ?? ''))}"
-                                "\n📏 Size : ${propertyDetailsPage.porpertyDetailsDataModel.data?.size.toString()} SQFT"),
+                                "\n📏 Size : ${propertyDetailsPage.porpertyDetailsDataModel.data?.size.toString()} SQFT"
+                                "\n\nProperty Link Here:"
+                                "\nhttps://www.raipurhomes.com/property-details/\n${propertyDetailsPage.porpertyDetailsDataModel.data?.titleSlug.toString()}-${propertyDetailsPage.porpertyDetailsDataModel.data?.serviceId.toString()}"),
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(

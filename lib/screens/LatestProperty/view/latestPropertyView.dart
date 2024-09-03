@@ -141,8 +141,8 @@ class _LatestPropertyViewState extends State<LatestPropertyView> {
                               ).format(int.parse(latestPropertyController.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
                                   "\n📏 Size : ${latestPropertyController.allPropertyModel.data?[index].size.toString()} SQFT"
                                   "\n\nDiscover this fantastic property! Located in a prime area, it offers excellent value with plenty of space to suit your needs. Click the link to learn more and share with your friends!"
-                                  "\n\nCheck out though this link :"
-                                  "\nhttps://play.google.com/store/apps/details?id=com.raipurHomes");
+                                  "\n\nCheck out through this link :"
+                                  "\nhttps://www.raipurhomes.com/property-details/${latestPropertyController.allPropertyModel.data?[index].titleSlug.toString()}-${latestPropertyController.allPropertyModel.data?[index].serviceId.toString()}");
                             },
                             onTapFavorite: () {
                               if (box.read("access_token_raipurHomes") == "") {
@@ -293,7 +293,9 @@ class _LatestPropertyViewState extends State<LatestPropertyView> {
                                       locale: 'HI',
                                       symbol: AppText.rupeeSymbol,
                                     ).format(int.parse(latestPropertyController.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
-                                    "\n📏 Size : ${latestPropertyController.allPropertyModel.data?[index].size.toString()} SQFT"),
+                                    "\n📏 Size : ${latestPropertyController.allPropertyModel.data?[index].size.toString()} SQFT"
+                                    "\n\nProperty Link Here:"
+                                    "\nhttps://www.raipurhomes.com/property-details/${latestPropertyController.allPropertyModel.data?[index].titleSlug.toString()}-${latestPropertyController.allPropertyModel.data?[index].serviceId.toString()}"),
                             views: latestPropertyController
                                     .allPropertyModel.data?[index].visitCount
                                     .toString() ??

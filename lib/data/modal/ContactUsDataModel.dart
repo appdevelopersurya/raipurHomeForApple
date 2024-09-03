@@ -68,6 +68,7 @@ class Data {
     dynamic adminNumber,
     dynamic number2,
     dynamic number3,
+    dynamic enquiryNumber,
     dynamic adminWhatsappNumber,
     dynamic videoLink,
     dynamic instagramID,
@@ -80,6 +81,7 @@ class Data {
     _adminNumber = adminNumber;
     _number2 = number2;
     _number3 = number3;
+    _enquiryNumber = enquiryNumber;
     _adminWhatsappNumber = adminWhatsappNumber;
     _videoLink = videoLink;
     _instagramID = instagramID;
@@ -94,6 +96,7 @@ class Data {
     _adminNumber = json['Admin_number'];
     _number2 = json['number_2'];
     _number3 = json['number_3'];
+    _enquiryNumber = json['enquery_number'];
     _adminWhatsappNumber = json['admin_whatsapp_number'];
     _videoLink = json['youtube_video_link'];
     _instagramID = json['insta_id_link'];
@@ -107,6 +110,7 @@ class Data {
   dynamic _adminNumber;
   dynamic _number2;
   dynamic _number3;
+  dynamic _enquiryNumber;
   dynamic _adminWhatsappNumber;
   dynamic _videoLink;
   dynamic _instagramID;
@@ -120,6 +124,7 @@ class Data {
     dynamic adminNumber,
     dynamic number2,
     dynamic number3,
+    dynamic enquiryNumber,
     dynamic adminWhatsappNumber,
     dynamic videoLink,
     dynamic instagramID,
@@ -133,6 +138,7 @@ class Data {
         adminNumber: adminNumber ?? _adminNumber,
         number2: number2 ?? _number2,
         number3: number3 ?? _number3,
+        enquiryNumber: enquiryNumber ?? _enquiryNumber,
         adminWhatsappNumber: adminWhatsappNumber ?? _adminWhatsappNumber,
         videoLink: videoLink ?? _videoLink,
         instagramID: instagramID ?? _instagramID,
@@ -149,6 +155,8 @@ class Data {
   dynamic get number2 => _number2;
 
   dynamic get number3 => _number3;
+
+  dynamic get enquiryNumber => _enquiryNumber;
 
   dynamic get adminWhatsappNumber => _adminWhatsappNumber;
 
@@ -170,6 +178,7 @@ class Data {
     map['Admin_number'] = _adminNumber;
     map['number_2'] = _number2;
     map['number_3'] = _number3;
+    map['enquery_number'] = _enquiryNumber;
     map['admin_whatsapp_number'] = _adminWhatsappNumber;
     map['youtube_video_link'] = _videoLink;
     map['insta_id_link'] = _instagramID;

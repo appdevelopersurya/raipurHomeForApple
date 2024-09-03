@@ -88,9 +88,7 @@ class ContactFeatures {
   Future<void> launchInstagram(BuildContext context, String idLink) async {
     String instagramUrl = Platform.isAndroid
         ? "instagram://user?username=$idLink"
-        : Platform.isMacOS || Platform.isWindows
-            ? "https://www.instagram.com/$idLink/?hl=en"
-            : "instagram://user?username=$idLink";
+        : "https://www.instagram.com/raipurhomes_/?hl=en";
     try {
       if (!await launchUrl(Uri.parse(instagramUrl))) {
         ScaffoldMessenger.of(context).showSnackBar(
