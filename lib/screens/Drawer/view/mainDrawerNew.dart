@@ -509,47 +509,62 @@ class _MainDrawerNewState extends State<MainDrawerNew> {
                         }).toList() ??
                         [],
                   ),
-                  // Project Wise
-                  ExpansionTile(
-                    childrenPadding: EdgeInsets.zero,
-                    expansionAnimationStyle:
-                        AnimationStyle(curve: Curves.easeInOut),
-                    title: Text(
-                      "Project Wise",
-                      style: Theme.of(context).textTheme.labelSmall,
+                  // // Project Wise
+                  // ExpansionTile(
+                  //   childrenPadding: EdgeInsets.zero,
+                  //   expansionAnimationStyle:
+                  //       AnimationStyle(curve: Curves.easeInOut),
+                  //   title: Text(
+                  //     "Project Wise",
+                  //     style: Theme.of(context).textTheme.labelSmall,
+                  //   ),
+                  //   tilePadding: const EdgeInsets.symmetric(
+                  //       horizontal: 16.0, vertical: 0.0),
+                  //   children: filterToolViewModel.filterToolsDataModel.builders
+                  //           ?.map((projectWise) {
+                  //         return InkWell(
+                  //           onTap: () {
+                  //             Navigator.pushNamed(
+                  //               context,
+                  //               AppRoutes.mainFilter,
+                  //               arguments: PassFilterModel(
+                  //                   id: projectWise.id,
+                  //                   logLate: "onlyBuilder",
+                  //                   title: "Main Filter"),
+                  //             );
+                  //           },
+                  //           child: Padding(
+                  //             padding: const EdgeInsets.fromLTRB(
+                  //                 35.0, 5.0, 5.0, 5.0),
+                  //             child: Row(
+                  //               crossAxisAlignment: CrossAxisAlignment.center,
+                  //               children: <Widget>[
+                  //                 Text(
+                  //                   projectWise.name.toString(),
+                  //                   style:
+                  //                       Theme.of(context).textTheme.labelSmall,
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         );
+                  //       }).toList() ??
+                  //       [],
+                  // ),
+                  //Projects
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      AppRoutes.ourProjectsList,
                     ),
-                    tilePadding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 0.0),
-                    children: filterToolViewModel.filterToolsDataModel.builders
-                            ?.map((projectWise) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                AppRoutes.mainFilter,
-                                arguments: PassFilterModel(
-                                    id: projectWise.id,
-                                    logLate: "onlyBuilder",
-                                    title: "Main Filter"),
-                              );
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  35.0, 5.0, 5.0, 5.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    projectWise.name.toString(),
-                                    style:
-                                        Theme.of(context).textTheme.labelSmall,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }).toList() ??
-                        [],
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 10.0),
+                      child: Text(
+                        "Projects",
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ),
                   ),
                   //Explore
                   InkWell(

@@ -64,6 +64,10 @@ abstract class AppUrlEndpoints {
   String get blogView;
 
   String get blogViewDetails;
+
+  String get ourProjects;
+
+  String get ourProjectsDetails;
 }
 
 class _AuthEndPoints implements AppUrlEndpoints {
@@ -150,4 +154,10 @@ class _AuthEndPoints implements AppUrlEndpoints {
 
   @override
   String get blogViewDetails => "api/blog-details";
+
+  @override
+  String get ourProjects => "api/our-projects";
+
+  @override
+  String get ourProjectsDetails => "api/our-projects-details";
 }

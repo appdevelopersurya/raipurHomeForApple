@@ -26,6 +26,7 @@ import 'package:fmraipuromes/repository/getFilterTools.dart';
 import 'package:fmraipuromes/repository/getImageFromUser.dart';
 import 'package:fmraipuromes/screens/Drawer/view/mainDrawerNew.dart';
 import 'package:fmraipuromes/screens/Home/viewModal/homeViewController.dart';
+import 'package:fmraipuromes/screens/SubPages/OurProjects/viewModel/OurProjectsViewsModel.dart';
 import 'package:fmraipuromes/screens/SubPages/PopularLocationPropertyList/viewModal/popularLocationPropertyListViewModal.dart';
 import 'package:fmraipuromes/screens/SubPages/Support/supportViewModel.dart';
 import 'package:fmraipuromes/services/apis/app_url.dart';
@@ -91,6 +92,8 @@ class _HomeViewState extends State<HomeView> {
         Provider.of<HomeVIewController>(context, listen: false);
     final supportViewController =
         Provider.of<SupportViewModel>(context, listen: false);
+    final ourProjectsList =
+        Provider.of<OurProjectsViewModel>(context, listen: false);
     if (mounted) {
       homeViewController.checkPermission();
       homeViewController.getBanner(false);
@@ -98,9 +101,9 @@ class _HomeViewState extends State<HomeView> {
       homeViewController.getFeatureProperty(false, featuredPType);
       homeViewController.getSuggestionData(false);
       supportViewController.getContactDetails();
+      ourProjectsList.getProjectList();
       getGreeting();
-      final filterController =
-          Provider.of<GetFilterTools>(context, listen: false);
+      Provider.of<GetFilterTools>(context, listen: false);
     }
   }
 
@@ -262,6 +265,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     final homeViewController = Provider.of<HomeVIewController>(context);
     final supportViewController = Provider.of<SupportViewModel>(context);
+    final ourProjectViewController = Provider.of<OurProjectsViewModel>(context);
     Provider.of<BookMarkController>(context);
     Size size = MediaQuery.of(context).size;
 
@@ -1820,6 +1824,68 @@ class _HomeViewState extends State<HomeView> {
                                   },
                                 )
                               : const Offstage(),
+                          FadeInLeft(
+                            child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "Tie-Up Projects In Raipur",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(color: textColor2),
+                                )),
+                          ),
+                          SizedBox(
+                              height: size.width >= 640
+                                  ? size.height * 0.5
+                                  : size.height * 0.235,
+                              width: size.width * 0.9,
+                              child: ListView.builder(
+                                controller: _scrollController,
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemCount:
+                                    value.trendingAreaModel.data?.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  return FadeInRight(
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, AppRoutes.ourProjects,
+                                            arguments: PassFilterModel(
+                                                id: ourProjectViewController
+                                                        .ourProjectDataModels
+                                                        .data?[index]
+                                                        .id
+                                                        ?.toInt() ??
+                                                    0,
+                                                title: ourProjectViewController
+                                                        .ourProjectDataModels
+                                                        .data?[index]
+                                                        .projectName
+                                                        .toString() ??
+                                                    "",
+                                                logLate: "singleLocation"));
+                                      },
+                                      child: PopularLocationSquare(
+                                        image: ourProjectViewController
+                                                .ourProjectDataModels
+                                                .data?[index]
+                                                .projectImage
+                                                .toString() ??
+                                            "",
+                                        locationName: ourProjectViewController
+                                                .ourProjectDataModels
+                                                .data?[index]
+                                                .projectName
+                                                .toString() ??
+                                            "",
+                                        // propertyQty: "2",
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )),
                           homeViewController.bannerDataModel.exploreCategory
                                       ?.length !=
                                   0
@@ -3720,8 +3786,8 @@ class _HomeViewState extends State<HomeView> {
                       onSelected: (option) {
                         print("The $option was selected");
                         searchController.text = option.toString();
-                        setState(() {});
 
+                        setState(() {});
                         Navigator.pushNamed(
                           context,
                           AppRoutes.mainFilter,
@@ -3733,7 +3799,6 @@ class _HomeViewState extends State<HomeView> {
                             context.read<GetFilterTools>().clearAllFilters());
                         context.read<GetFilterTools>().setSearchKeyword(
                             _searchController.text.toString() ?? "");
-
                         KeyboardUtils.unFocus(context);
                       },
                       fieldViewBuilder:
