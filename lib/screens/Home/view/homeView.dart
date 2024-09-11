@@ -358,14 +358,25 @@ class _HomeViewState extends State<HomeView> {
                                           items: homeViewController
                                               .bannerDataModel.data
                                               ?.map((item) {
-                                            return CachedNetworkImage(
-                                              fit: BoxFit.contain,
-                                              imageUrl: AppUrl.baseUrl +
-                                                  item.sliderImg.toString(),
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  Image.asset(
-                                                      "assets/png/rprNewLogo.png"),
+                                            return InkWell(
+                                              onTap: () {
+                                                if (item.url != null) {
+                                                  ContactFeatures()
+                                                      .gotoRaipurBuilder(
+                                                          context,
+                                                          item.url.toString(),
+                                                          "Raipur Builder");
+                                                }
+                                              },
+                                              child: CachedNetworkImage(
+                                                fit: BoxFit.contain,
+                                                imageUrl: AppUrl.baseUrl +
+                                                    item.sliderImg.toString(),
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    Image.asset(
+                                                        "assets/png/rprNewLogo.png"),
+                                              ),
                                             );
                                           }).toList(),
                                         ),

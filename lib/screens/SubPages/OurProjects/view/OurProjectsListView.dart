@@ -38,9 +38,7 @@ class _OurProjectsListViewState extends State<OurProjectsListView> {
 
   @override
   Widget build(BuildContext context) {
-    final ourProjectController = Provider.of<OurProjectsViewModel>(
-      context,
-    );
+    final ourProjectController = Provider.of<OurProjectsViewModel>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: const NormalAppBar(
@@ -94,16 +92,36 @@ class _OurProjectsListViewState extends State<OurProjectsListView> {
                                 ),
                               ),
                               const Gap(10.0),
-                              Text(
-                                textAlign: TextAlign.left,
-                                ourProjectController.ourProjectDataModels
-                                        .data?[index].projectName
-                                        .toString() ??
-                                    "",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(color: accentColor),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.ourProjects,
+                                      arguments: PassFilterModel(
+                                          id: ourProjectController
+                                                  .ourProjectDataModels
+                                                  .data?[index]
+                                                  .id
+                                                  ?.toInt() ??
+                                              0,
+                                          title: ourProjectController
+                                                  .ourProjectDataModels
+                                                  .data?[index]
+                                                  .projectName
+                                                  .toString() ??
+                                              "",
+                                          logLate: "singleLocation"));
+                                },
+                                child: Text(
+                                  textAlign: TextAlign.left,
+                                  ourProjectController.ourProjectDataModels
+                                          .data?[index].projectName
+                                          .toString() ??
+                                      "",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(color: accentColor),
+                                ),
                               ),
                               const Gap(10.0),
                               HtmlWidget(

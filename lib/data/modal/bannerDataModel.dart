@@ -5,6 +5,7 @@ import 'dart:convert';
 
 BannerDataModel bannerDataModelFromJson(String str) =>
     BannerDataModel.fromJson(json.decode(str));
+
 String bannerDataModelToJson(BannerDataModel data) =>
     json.encode(data.toJson());
 
@@ -34,9 +35,11 @@ class BannerDataModel {
       });
     }
   }
+
   bool? _success;
   List<Data>? _data;
   List<ExploreCategory>? _exploreCategory;
+
   BannerDataModel copyWith({
     bool? success,
     List<Data>? data,
@@ -47,8 +50,11 @@ class BannerDataModel {
         data: data ?? _data,
         exploreCategory: exploreCategory ?? _exploreCategory,
       );
+
   bool? get success => _success;
+
   List<Data>? get data => _data;
+
   List<ExploreCategory>? get exploreCategory => _exploreCategory;
 
   Map<String, dynamic> toJson() {
@@ -71,6 +77,7 @@ class BannerDataModel {
 /// creates_at : "2024-05-04 15:49:21"
 
 Data dataFromJson(String str) => Data.fromJson(json.decode(str));
+
 String dataToJson(Data data) => json.encode(data.toJson());
 
 class Data {
@@ -79,11 +86,13 @@ class Data {
     dynamic sliderImg,
     dynamic sliderStatus,
     dynamic createsAt,
+    dynamic url,
   }) {
     _id = id;
     _sliderImg = sliderImg;
     _sliderStatus = sliderStatus;
     _createsAt = createsAt;
+    _url = url;
   }
 
   Data.fromJson(dynamic json) {
@@ -91,27 +100,39 @@ class Data {
     _sliderImg = json['slider_img'];
     _sliderStatus = json['slider_status'];
     _createsAt = json['creates_at'];
+    _url = json['url'];
   }
+
   int? _id;
   dynamic _sliderImg;
   dynamic _sliderStatus;
   dynamic _createsAt;
+  dynamic _url;
+
   Data copyWith({
     int? id,
     dynamic sliderImg,
     dynamic sliderStatus,
     dynamic createsAt,
+    dynamic url,
   }) =>
       Data(
         id: id ?? _id,
         sliderImg: sliderImg ?? _sliderImg,
         sliderStatus: sliderStatus ?? _sliderStatus,
         createsAt: createsAt ?? _createsAt,
+        url: url ?? _url,
       );
+
   int? get id => _id;
+
   dynamic get sliderImg => _sliderImg;
+
   dynamic get sliderStatus => _sliderStatus;
+
   dynamic get createsAt => _createsAt;
+
+  dynamic get url => _url;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -119,6 +140,7 @@ class Data {
     map['slider_img'] = _sliderImg;
     map['slider_status'] = _sliderStatus;
     map['creates_at'] = _createsAt;
+    map['url'] = _url;
     return map;
   }
 }
@@ -159,6 +181,7 @@ class ExploreCategory {
     _dateTime = json['date_time'];
     _propertiesCount = json['properties_count'];
   }
+
   dynamic? _id;
   String? _name;
   String? _iconCode;
@@ -166,6 +189,7 @@ class ExploreCategory {
   dynamic? _status;
   dynamic _dateTime;
   dynamic? _propertiesCount;
+
   ExploreCategory copyWith({
     dynamic? id,
     String? name,
@@ -184,12 +208,19 @@ class ExploreCategory {
         dateTime: dateTime ?? _dateTime,
         propertiesCount: propertiesCount ?? _propertiesCount,
       );
+
   dynamic? get id => _id;
+
   String? get name => _name;
+
   String? get iconCode => _iconCode;
+
   String? get image => _image;
+
   dynamic? get status => _status;
+
   dynamic get dateTime => _dateTime;
+
   dynamic? get propertiesCount => _propertiesCount;
 
   Map<String, dynamic> toJson() {

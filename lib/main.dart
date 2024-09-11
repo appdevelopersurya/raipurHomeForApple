@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fmraipuromes/repository/counter_provider.dart';
@@ -11,6 +10,7 @@ import 'package:fmraipuromes/screens/MainHome/viewModal/mainHomeViewModal.dart';
 import 'package:fmraipuromes/screens/Profile/viewModel/profileViewModel.dart';
 import 'package:fmraipuromes/screens/SubPages/Blog/blogViewDetails/viewModel/blogDetailsViewMocel.dart';
 import 'package:fmraipuromes/screens/SubPages/Explore/viewModel/exploreViewModel.dart';
+import 'package:fmraipuromes/screens/SubPages/OurProjects/viewModel/OurProjectsViewsModel.dart';
 import 'package:fmraipuromes/screens/SubPages/PopularLocationPropertyList/viewModal/popularLocationPropertyListViewModal.dart';
 import 'package:fmraipuromes/screens/SubPages/Support/supportViewModel.dart';
 import 'package:fmraipuromes/screens/auth/VerifyOTP/viewModal/OTPViewController.dart';
@@ -47,6 +47,20 @@ Future<void> main() async {
   PushNotifications.firebaseInitial();
   PushNotifications.isTokenRefreshed();
 
+  try {
+    /// Initialize Ip Address
+    var ipAddress = IpAddress(type: RequestType.json);
+
+    /// Get the IpAddress based on requestType.
+    dynamic data = await ipAddress.getIpAddress();
+    String deviceIp = data["ip"].toString();
+    box.write("rprHomesDeviceIP", deviceIp);
+    print("ASDFG======>  ${data["ip"].toString()}");
+  } on IpAddressException catch (exception) {
+    /// Handle the exception.
+    print(exception.message);
+  }
+
   runApp(const MyApp());
   // runApp(DevicePreview(
   //     enabled: !kReleaseMode, builder: (context) => const MyApp()));
@@ -77,6 +91,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => NotificationViewModel()),
           ChangeNotifierProvider(create: (_) => BlogViewModel()),
           ChangeNotifierProvider(create: (_) => BlogDetailsViewModel()),
+          ChangeNotifierProvider(create: (_) => OurProjectsViewModel()),
           ChangeNotifierProvider(
               create: (_) => PopularLocationPropertyListViewModal()),
           ChangeNotifierProvider(

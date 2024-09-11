@@ -88,7 +88,9 @@ class ContactFeatures {
   Future<void> launchInstagram(BuildContext context, String idLink) async {
     String instagramUrl = Platform.isAndroid
         ? "instagram://user?username=$idLink"
-        : "https://www.instagram.com/raipurhomes_/?hl=en";
+        : Platform.isMacOS || Platform.isWindows
+            ? "https://www.instagram.com/$idLink/?hl=en"
+            : "https://www.instagram.com/raipurhomes_/?hl=en";
     try {
       if (!await launchUrl(Uri.parse(instagramUrl))) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -165,6 +167,31 @@ class ContactFeatures {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("You don't have Youtube app"),
+        ),
+      );
+    }
+  }
+
+  Future<void> gotoRaipurBuilder(
+      BuildContext context, String url, String urlName) async {
+    try {
+      if (!await launchUrl(Uri.parse(url))) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Invalid URL"),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Opening $urlName..."),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error opening $urlName"),
         ),
       );
     }
