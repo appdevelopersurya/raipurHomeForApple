@@ -201,39 +201,39 @@ class FeaturedPropertyCardForHome2 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  (views == "0" || views == "" || views.contains("null"))
-                      ? const Offstage()
-                      : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.orange,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    size: 18,
-                                    Icons.visibility,
-                                    color: Colors.white,
-                                  ),
-                                  const Gap(5.0),
-                                  Text(
-                                    views ?? "",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall!
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
+                  // (views == "0" || views == "" || views.contains("null"))
+                  //     ? const Offstage()
+                  //     : Padding(
+                  //         padding: const EdgeInsets.all(8.0),
+                  //         child: Container(
+                  //           decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(8),
+                  //             color: Colors.orange,
+                  //           ),
+                  //           child: Padding(
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 vertical: 5.0, horizontal: 8.0),
+                  //             child: Row(
+                  //               mainAxisSize: MainAxisSize.min,
+                  //               children: [
+                  //                 const Icon(
+                  //                   size: 18,
+                  //                   Icons.visibility,
+                  //                   color: Colors.white,
+                  //                 ),
+                  //                 const Gap(5.0),
+                  //                 Text(
+                  //                   views ?? "",
+                  //                   style: Theme.of(context)
+                  //                       .textTheme
+                  //                       .labelSmall!
+                  //                       .copyWith(color: Colors.white),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       )
                 ],
               ),
             ),
@@ -586,39 +586,39 @@ class FeaturedPropertyCardSqaure extends StatelessWidget {
                       ),
                     ),
                   ),
-                  (views == "0" || views == "" || views.contains("null"))
-                      ? const Offstage()
-                      : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.orange,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    size: 18,
-                                    Icons.visibility,
-                                    color: Colors.white,
-                                  ),
-                                  const Gap(5.0),
-                                  Text(
-                                    views ?? "",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall!
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
+                  // (views == "0" || views == "" || views.contains("null"))
+                  //     ? const Offstage()
+                  //     : Padding(
+                  //         padding: const EdgeInsets.all(8.0),
+                  //         child: Container(
+                  //           decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(8),
+                  //             color: Colors.orange,
+                  //           ),
+                  //           child: Padding(
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 vertical: 5.0, horizontal: 8.0),
+                  //             child: Row(
+                  //               mainAxisSize: MainAxisSize.min,
+                  //               children: [
+                  //                 const Icon(
+                  //                   size: 18,
+                  //                   Icons.visibility,
+                  //                   color: Colors.white,
+                  //                 ),
+                  //                 const Gap(5.0),
+                  //                 Text(
+                  //                   views ?? "",
+                  //                   style: Theme.of(context)
+                  //                       .textTheme
+                  //                       .labelSmall!
+                  //                       .copyWith(color: Colors.white),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       )
                 ],
               ),
             ),

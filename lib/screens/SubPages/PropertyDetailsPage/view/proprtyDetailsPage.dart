@@ -354,59 +354,59 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                                     ),
                                   ),
                                 ),
-                          Positioned(
-                              bottom: 30,
-                              right: 10,
-                              child: (propertyDetailsPage
-                                              .porpertyDetailsDataModel
-                                              .data
-                                              ?.visitCount ==
-                                          "0" ||
-                                      propertyDetailsPage
-                                              .porpertyDetailsDataModel
-                                              .data
-                                              ?.visitCount ==
-                                          "")
-                                  ? const SizedBox()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          color: Colors.orange,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10.0, vertical: 8.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              const Icon(
-                                                size: 18,
-                                                Icons.visibility,
-                                                color: Colors.white,
-                                              ),
-                                              const Gap(5.0),
-                                              Text(
-                                                propertyDetailsPage
-                                                        .porpertyDetailsDataModel
-                                                        .data
-                                                        ?.visitCount
-                                                        .toString() ??
-                                                    "",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelSmall!
-                                                    .copyWith(
-                                                        fontSize: 12.0,
-                                                        color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ))
+                          // Positioned(
+                          //     bottom: 30,
+                          //     right: 10,
+                          //     child: (propertyDetailsPage
+                          //                     .porpertyDetailsDataModel
+                          //                     .data
+                          //                     ?.visitCount ==
+                          //                 "0" ||
+                          //             propertyDetailsPage
+                          //                     .porpertyDetailsDataModel
+                          //                     .data
+                          //                     ?.visitCount ==
+                          //                 "")
+                          //         ? const SizedBox()
+                          //         : Padding(
+                          //             padding: const EdgeInsets.all(8.0),
+                          //             child: Container(
+                          //               decoration: BoxDecoration(
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(8),
+                          //                 color: Colors.orange,
+                          //               ),
+                          //               child: Padding(
+                          //                 padding: const EdgeInsets.symmetric(
+                          //                     horizontal: 10.0, vertical: 8.0),
+                          //                 child: Row(
+                          //                   mainAxisSize: MainAxisSize.min,
+                          //                   children: [
+                          //                     const Icon(
+                          //                       size: 18,
+                          //                       Icons.visibility,
+                          //                       color: Colors.white,
+                          //                     ),
+                          //                     const Gap(5.0),
+                          //                     Text(
+                          //                       propertyDetailsPage
+                          //                               .porpertyDetailsDataModel
+                          //                               .data
+                          //                               ?.visitCount
+                          //                               .toString() ??
+                          //                           "",
+                          //                       style: Theme.of(context)
+                          //                           .textTheme
+                          //                           .labelSmall!
+                          //                           .copyWith(
+                          //                               fontSize: 12.0,
+                          //                               color: Colors.white),
+                          //                     ),
+                          //                   ],
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ))
                         ],
                       ),
                     ),

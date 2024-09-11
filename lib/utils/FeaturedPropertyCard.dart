@@ -1,15 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fmraipuromes/constant/appText.dart';
 import 'package:fmraipuromes/constant/color.dart';
-import 'package:fmraipuromes/data/modal/AllPropertyModel.dart';
 import 'package:fmraipuromes/services/apis/app_url.dart';
 import 'package:fmraipuromes/utils/featuredPropertyCardShowOptions.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../data/modal/AllPropertyModel.dart';
 
 class FeaturedPropertyCardForHome extends StatelessWidget {
   final CarouselController? carouselController;
@@ -198,39 +200,39 @@ class FeaturedPropertyCardForHome extends StatelessWidget {
                       ),
                     ),
                   ),
-                  (views == "0" || views == "" || views.contains("null"))
-                      ? const Offstage()
-                      : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.orange,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 8.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Icon(
-                                    size: 18,
-                                    Icons.visibility,
-                                    color: Colors.white,
-                                  ),
-                                  const Gap(5.0),
-                                  Text(
-                                    views ?? "",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelSmall!
-                                        .copyWith(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        )
+                  // (views == "0" || views == "" || views.contains("null"))
+                  //     ? const Offstage()
+                  //     : Padding(
+                  //         padding: const EdgeInsets.all(8.0),
+                  //         child: Container(
+                  //           decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(8),
+                  //             color: Colors.orange,
+                  //           ),
+                  //           child: Padding(
+                  //             padding: const EdgeInsets.symmetric(
+                  //                 vertical: 5.0, horizontal: 8.0),
+                  //             child: Row(
+                  //               mainAxisSize: MainAxisSize.min,
+                  //               children: [
+                  //                 const Icon(
+                  //                   size: 18,
+                  //                   Icons.visibility,
+                  //                   color: Colors.white,
+                  //                 ),
+                  //                 const Gap(5.0),
+                  //                 Text(
+                  //                   views ?? "",
+                  //                   style: Theme.of(context)
+                  //                       .textTheme
+                  //                       .labelSmall!
+                  //                       .copyWith(color: Colors.white),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       )
                 ],
               ),
             ),
@@ -1029,36 +1031,36 @@ class FeaturedPropertyCardForMyProperty extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        (views == "0" || views == "" || views.contains("null"))
-                            ? const Offstage()
-                            : Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.orange,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5.0, horizontal: 8.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Icon(
-                                        size: 18,
-                                        Icons.visibility,
-                                        color: Colors.white,
-                                      ),
-                                      const Gap(5.0),
-                                      Text(
-                                        views ?? "",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelSmall!
-                                            .copyWith(color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                        // (views == "0" || views == "" || views.contains("null"))
+                        //     ? const Offstage()
+                        //     : Container(
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(8),
+                        //           color: Colors.orange,
+                        //         ),
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.symmetric(
+                        //               vertical: 5.0, horizontal: 8.0),
+                        //           child: Row(
+                        //             mainAxisSize: MainAxisSize.min,
+                        //             children: [
+                        //               const Icon(
+                        //                 size: 18,
+                        //                 Icons.visibility,
+                        //                 color: Colors.white,
+                        //               ),
+                        //               const Gap(5.0),
+                        //               Text(
+                        //                 views ?? "",
+                        //                 style: Theme.of(context)
+                        //                     .textTheme
+                        //                     .labelSmall!
+                        //                     .copyWith(color: Colors.white),
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       ),
                         InkWell(
                           onTap: onTapDelete,
                           child: Container(
