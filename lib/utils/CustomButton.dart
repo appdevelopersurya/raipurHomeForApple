@@ -6,6 +6,7 @@ import '../constant/color.dart';
 class CustomButton extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
+
   const CustomButton({
     super.key,
     required this.title,
@@ -20,7 +21,7 @@ class CustomButton extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
-            color: secondaryColor,
+            gradient: defaultGradient3,
             boxShadow: [
               BoxShadow(
                 color: secondaryColor.withOpacity(0.2),
@@ -35,7 +36,7 @@ class CustomButton extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelSmall!
-                .copyWith(color: buttonTextColor),
+                .copyWith(color: textDarkColor, fontWeight: FontWeight.w600),
           ),
         ),
       ),
@@ -46,6 +47,7 @@ class CustomButton extends StatelessWidget {
 class CustomButton2 extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
+
   const CustomButton2({
     super.key,
     required this.title,
@@ -60,7 +62,7 @@ class CustomButton2 extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
-            color: secondaryColor,
+            gradient: defaultGradient3,
             boxShadow: [
               BoxShadow(
                 color: secondaryColor.withOpacity(0.2),
@@ -75,7 +77,7 @@ class CustomButton2 extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .labelSmall!
-                .copyWith(color: buttonTextColor),
+                .copyWith(color: textDarkColor),
           ),
         ),
       ),
@@ -87,6 +89,7 @@ class CustomButton3 extends StatelessWidget {
   final String title;
   final Widget leading;
   final VoidCallback? onTap;
+
   const CustomButton3({
     super.key,
     required this.title,
@@ -102,7 +105,7 @@ class CustomButton3 extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
-            color: Colors.white,
+            gradient: defaultGradient3,
             boxShadow: [
               BoxShadow(
                 color: accentColor.withOpacity(0.2),
@@ -119,10 +122,8 @@ class CustomButton3 extends StatelessWidget {
               const Gap(10.0),
               Text(
                 title,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelSmall!
-                    .copyWith(fontWeight: FontWeight.w600),
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                    fontWeight: FontWeight.w600, color: textDarkColor),
               ),
             ],
           ),

@@ -37,7 +37,11 @@ class _Splash_ScreenState extends State<Splash_Screen> {
         const Duration(seconds: 1),
         () {
           if (isLoggedIn == true) {
-            Navigator.pushReplacementNamed(context, AppRoutes.homeMain);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.homeMain,
+              (route) => false,
+            );
           } else {
             Navigator.pushNamedAndRemoveUntil(
               context,

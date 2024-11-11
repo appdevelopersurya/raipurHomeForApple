@@ -46,6 +46,50 @@ class HomeTitlesHeading extends StatelessWidget {
   }
 }
 
+class HomeTitlesCenterHeading extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final VoidCallback? onTap;
+
+  const HomeTitlesCenterHeading({
+    super.key,
+    required this.title,
+    this.subtitle,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            // "Popular property",
+            title,
+            style: Theme.of(context)
+                .textTheme
+                .labelMedium!
+                .copyWith(color: textColor, fontWeight: FontWeight.w600),
+          ),
+          InkWell(
+            onTap: onTap,
+            child: Text(
+              // "View all",
+              subtitle ?? "",
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall!
+                  .copyWith(color: textColor),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class SubPageTitlesHeading extends StatelessWidget {
   final String title;
   final String? subtitle;

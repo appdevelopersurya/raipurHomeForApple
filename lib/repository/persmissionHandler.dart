@@ -25,43 +25,15 @@ class PermissionHandlerService {
     return _handlePermissionStatus(status);
   }
 
-  // Check if all permissions are granted
+  // Request all permissions
   Future<bool> requestAllPermissions() async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.camera,
-      Permission.location,
-      Permission.microphone,
-      Permission.storage,
-    ].request();
+    bool cameraGranted = await requestCameraPermission();
+    bool locationGranted = await requestLocationPermission();
+    bool audioGranted = await requestAudioPermission();
+    bool storageGranted = await requestStoragePermission();
 
-    bool allGranted = true;
-
-    statuses.forEach((permission, status) {
-      if (!status.isGranted) {
-        allGranted = false;
-        _handlePermissionStatus(status);
-      }
-    });
-
-    // Return true if all permissions are granted
-    return allGranted;
-  }
-
-  // Check the status of individual permissions
-  Future<bool> checkCameraPermission() async {
-    return await Permission.camera.isGranted;
-  }
-
-  Future<bool> checkLocationPermission() async {
-    return await Permission.location.isGranted;
-  }
-
-  Future<bool> checkAudioPermission() async {
-    return await Permission.microphone.isGranted;
-  }
-
-  Future<bool> checkStoragePermission() async {
-    return await Permission.storage.isGranted;
+    // Return true only if all permissions are granted
+    return cameraGranted && locationGranted && audioGranted && storageGranted;
   }
 
   // Handle permission status
@@ -69,14 +41,13 @@ class PermissionHandlerService {
     if (status.isGranted) {
       return true;
     } else if (status.isDenied) {
-      // User denied the permission, you might want to show a message or prompt
-      // them to grant it from the settings.
-      print('Permission denied. Show a dialog to user or handle accordingly.');
-      return false;
+      // Re-request permission if it is denied
+      print('Permission denied. Requesting again...');
+      return false; // Handle by re-requesting in `requestAllPermissions`
     } else if (status.isPermanentlyDenied) {
       // Permission is permanently denied, take user to app settings.
       print('Permission permanently denied. Opening app settings...');
-      await openAppSettings();
+      // await openAppSettings();
       return false;
     }
     return false;

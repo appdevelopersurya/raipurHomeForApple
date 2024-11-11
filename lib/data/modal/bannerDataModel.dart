@@ -155,13 +155,13 @@ class Data {
 
 class ExploreCategory {
   ExploreCategory({
-    dynamic? id,
+    dynamic id,
     String? name,
     String? iconCode,
     String? image,
-    dynamic? status,
+    dynamic status,
     dynamic dateTime,
-    dynamic? propertiesCount,
+    dynamic propertiesCount,
   }) {
     _id = id;
     _name = name;
@@ -182,22 +182,22 @@ class ExploreCategory {
     _propertiesCount = json['properties_count'];
   }
 
-  dynamic? _id;
+  dynamic _id;
   String? _name;
   String? _iconCode;
   String? _image;
-  dynamic? _status;
+  dynamic _status;
   dynamic _dateTime;
-  dynamic? _propertiesCount;
+  dynamic _propertiesCount;
 
   ExploreCategory copyWith({
-    dynamic? id,
+    dynamic id,
     String? name,
     String? iconCode,
     String? image,
-    dynamic? status,
+    dynamic status,
     dynamic dateTime,
-    dynamic? propertiesCount,
+    dynamic propertiesCount,
   }) =>
       ExploreCategory(
         id: id ?? _id,
@@ -209,7 +209,7 @@ class ExploreCategory {
         propertiesCount: propertiesCount ?? _propertiesCount,
       );
 
-  dynamic? get id => _id;
+  dynamic get id => _id;
 
   String? get name => _name;
 
@@ -217,11 +217,11 @@ class ExploreCategory {
 
   String? get image => _image;
 
-  dynamic? get status => _status;
+  dynamic get status => _status;
 
   dynamic get dateTime => _dateTime;
 
-  dynamic? get propertiesCount => _propertiesCount;
+  dynamic get propertiesCount => _propertiesCount;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

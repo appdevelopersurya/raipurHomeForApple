@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fmraipuromes/Skeletons/notificationSkeleton.dart';
 import 'package:fmraipuromes/screens/MainHome/viewModal/mainHomeViewModal.dart';
 import 'package:fmraipuromes/screens/Notification/viewModel/notificationViewModel.dart';
+import 'package:fmraipuromes/utils/NormalAppBar.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -39,116 +40,62 @@ class _NotificationViewState extends State<NotificationView> {
   Widget build(BuildContext context) {
     final mainHomeController = Provider.of<MainHomeViewViewModal>(context);
     final notificationsViewModel = Provider.of<NotificationViewModel>(context);
-    return WillPopScope(
-      onWillPop: () async {
-        mainHomeController.changeIndexAccordingScreen(0);
-        return false;
-      },
-      child: Scaffold(
-        key: _scaffoldKey,
-        drawer: const MainDrawerNew(),
-        appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFffffff),
-                  Color(0xFFf3ef66),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-          ),
-          // backgroundColor: secondaryColor,
-          elevation: 1,
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          leading: Padding(
-            padding: const EdgeInsets.all(13.0),
-            child: InkWell(
-              onTap: () => _scaffoldKey.currentState!.openDrawer(),
-              child: Icon(
-                Icons.menu,
-                color: textColor2,
-              ),
-            ),
-          ),
-          title: Text(
-            "Notification",
-            style: Theme.of(context)
-                .textTheme
-                .labelLarge!
-                .copyWith(color: textColor2),
-          ),
-          // actions: [
-          //   Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: InkWell(
-          //       onTap: () {
-          //         // Navigator.pop(context);
-          //       },
-          //       child: const Icon(
-          //         CupertinoIcons.clear_circled,
-          //         color: Colors.white,
-          //       ),
-          //     ),
-          //   ),
-          // ],
-        ),
-        body: notificationsViewModel.isLoading
-            ? Shimmer.fromColors(
-                baseColor: Colors.grey.shade300,
-                highlightColor: Colors.grey.shade50,
-                child: const NotificationSkeleton())
-            : notificationsViewModel.notificationDataModel.data?.length == 0
-                ? Center(child: Lottie.asset("assets/gif/noData.json"))
-                : ListView.builder(
-                    itemCount: notificationsViewModel
-                            .notificationDataModel.data?.length ??
-                        0,
-                    itemBuilder: (context, index) {
-                      return FadeInLeft(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            tileColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0)),
-                            title: Text(
-                              notificationsViewModel
-                                      .notificationDataModel.data?[index].title
+    return Scaffold(
+      key: _scaffoldKey,
+      drawer: const MainDrawerNew(),
+      appBar: const NormalAppBar(title: "Notifications"),
+      body: notificationsViewModel.isLoading
+          ? Shimmer.fromColors(
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade50,
+              child: const NotificationSkeleton())
+          : notificationsViewModel.notificationDataModel.data?.length == 0
+              ? Center(child: Lottie.asset("assets/gif/noData.json"))
+              : ListView.builder(
+                  itemCount: notificationsViewModel
+                          .notificationDataModel.data?.length ??
+                      0,
+                  itemBuilder: (context, index) {
+                    return FadeInLeft(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          tileColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0)),
+                          title: Text(
+                            notificationsViewModel
+                                    .notificationDataModel.data?[index].title
+                                    .toString() ??
+                                "",
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          subtitle: Text(
+                              notificationsViewModel.notificationDataModel
+                                      .data?[index].descriptions
                                       .toString() ??
                                   "",
                               style: Theme.of(context)
                                   .textTheme
-                                  .labelMedium!
-                                  .copyWith(fontWeight: FontWeight.w600),
-                            ),
-                            subtitle: Text(
-                                notificationsViewModel.notificationDataModel
-                                        .data?[index].descriptions
-                                        .toString() ??
-                                    "",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall!
-                                    .copyWith(
-                                      color: subTitleColor,
-                                    )),
-                            leading: const CircleAvatar(
-                              backgroundImage:
-                                  AssetImage("assets/png/rprNewLogo.png"),
-                            ),
-                            onTap: () {
-                              // Handle notification tap
-                            },
+                                  .labelSmall!
+                                  .copyWith(
+                                    color: subTitleColor,
+                                  )),
+                          leading: const CircleAvatar(
+                            backgroundImage:
+                                AssetImage("assets/png/rprNewLogo.png"),
                           ),
+                          onTap: () {
+                            // Handle notification tap
+                          },
                         ),
-                      );
-                    },
-                  ),
-      ),
+                      ),
+                    );
+                  },
+                ),
     );
   }
 }

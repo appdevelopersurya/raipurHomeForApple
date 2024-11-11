@@ -12,7 +12,9 @@ import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../data/modal/AllPropertyModel.dart';
+import '../helper/amounFormatter.dart';
 
+//Home List Card
 class FeaturedPropertyCardForHome extends StatelessWidget {
   final CarouselController? carouselController;
   final String forSale;
@@ -630,6 +632,7 @@ class FeaturedPropertyCardForHome extends StatelessWidget {
   }
 }
 
+//Home List Featured Property Card
 class FeaturedPropertyCard extends StatelessWidget {
   final CarouselController? carouselController;
   final String forSale;
@@ -864,6 +867,7 @@ class FeaturedPropertyCard extends StatelessWidget {
   }
 }
 
+//Home List Featured Property Card For My Property
 class FeaturedPropertyCardForMyProperty extends StatelessWidget {
   final CarouselController? carouselController;
   final String forSale;
@@ -1321,6 +1325,442 @@ class FeaturedPropertyCardForMyProperty extends StatelessWidget {
             const Gap(20),
           ],
         ),
+      ),
+    );
+  }
+}
+
+//Grid Card
+class FeaturedPropertyGridCardForHome extends StatelessWidget {
+  final CarouselController? carouselController;
+  final String forSale;
+  final String type;
+  final String? subType;
+  final String? floorType;
+  final String price;
+  final String? priceType;
+  final String title;
+  final String views;
+  final String address;
+  final String constructionSize;
+  final String openSide;
+  final String propertyFace;
+  final String? propertyInterior;
+  final String? flatType;
+  final List<Getapiimages> imageList;
+  final String? featureImage;
+  final VoidCallback? onTap;
+  final VoidCallback? onTapCall;
+  final VoidCallback? onTapWhatsapp;
+  final VoidCallback? onTapFavorite;
+  final VoidCallback? onTapShare;
+  final bool isFavorite;
+  final bool isLoading;
+  final Function(int, CarouselPageChangedReason)? onPageChanged;
+
+  const FeaturedPropertyGridCardForHome({
+    super.key,
+    required this.size,
+    required this.forSale,
+    required this.type,
+    required this.price,
+    this.priceType,
+    required this.title,
+    required this.address,
+    required this.imageList,
+    this.onPageChanged,
+    this.carouselController,
+    this.featureImage,
+    this.onTap,
+    this.onTapCall,
+    this.onTapWhatsapp,
+    this.onTapFavorite,
+    this.onTapShare,
+    required this.isFavorite,
+    required this.views,
+    required this.constructionSize,
+    required this.openSide,
+    required this.propertyFace,
+    this.propertyInterior,
+    this.flatType,
+    required this.isLoading,
+    this.subType,
+    this.floorType,
+  });
+
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    bool hasConstructionSize = constructionSize != null &&
+        constructionSize != 0 &&
+        !constructionSize.toString().contains("null");
+    bool hasPropertyFace = propertyFace != null &&
+        propertyFace != 0 &&
+        !propertyFace.toString().contains("0") &&
+        !propertyFace.toString().contains("null");
+    bool hasOpenSide = openSide != null &&
+        openSide != 0 &&
+        !openSide.toString().contains("0") &&
+        !openSide.toString().contains("null");
+
+    // String formattedNumber = Formatter.formatNumber(price);
+
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.0),
+          // border: Border.all(width: 1, color: secondaryColor),
+          boxShadow: [
+            BoxShadow(
+              color: textColor2.withOpacity(0.3),
+              blurRadius: 3,
+              offset: const Offset(0, 2),
+            ),
+          ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              children: [
+                InkWell(
+                  onTap: onTap,
+                  child: Container(
+                    height: size.width >= 640
+                        ? size.height * 0.28
+                        : size.height * 0.18,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      // border: Border.all(width: 1, color: Colors.black),
+                      // image: DecorationImage(
+                      //     image:
+                      //         const AssetImage("assets/images/onBoardImage1.jpg"),
+                      //     fit: BoxFit.fill,
+                      //     onError: (exception, stackTrace) {}),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: imageList.isEmpty
+                          ? CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              imageUrl:
+                                  AppUrl.baseUrl + featureImage.toString(),
+                              // featureImage.toString(),
+                              placeholder: (context, url) {
+                                return Shimmer.fromColors(
+                                  baseColor: Colors.grey.shade300,
+                                  highlightColor: Colors.grey.shade100,
+                                  child: Container(
+                                    height: size.width >= 640
+                                        ? size.height * 0.28
+                                        : size.height * 0.18,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        color: Colors.black),
+                                  ),
+                                );
+                              },
+                              errorWidget: (context, url, error) {
+                                return Image.asset("assets/png/rprNewLogo.png");
+                              },
+                            )
+                          : CarouselSlider(
+                              items: imageList
+                                  .map(
+                                    (item) => CachedNetworkImage(
+                                      imageUrl: AppUrl.baseUrl +
+                                          item.filePath.toString(),
+                                      fit: BoxFit.fill,
+                                      width: double.infinity,
+                                      placeholder: (context, url) {
+                                        return Shimmer.fromColors(
+                                          baseColor: Colors.grey.shade300,
+                                          highlightColor: Colors.grey.shade100,
+                                          child: Container(
+                                            height: size.width >= 640
+                                                ? size.height * 0.28
+                                                : size.height * 0.18,
+                                            width: size.width,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                                color: Colors.black),
+                                          ),
+                                        );
+                                      },
+                                      errorWidget:
+                                          (context, error, stackTrace) {
+                                        return Image.asset(
+                                            "assets/png/rprNewLogo.png");
+                                      },
+                                    ),
+                                  )
+                                  .toList(),
+                              carouselController: carouselController,
+                              options: CarouselOptions(
+                                // aspectRatio: 16 / 9,
+                                height: size.width >= 640
+                                    ? size.height * 0.28
+                                    : size.height * 0.21,
+                                scrollPhysics: const BouncingScrollPhysics(),
+                                autoPlay: true,
+                                viewportFraction: 1,
+                              ),
+                            ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                    right: 5,
+                    top: 5,
+                    child: isLoading == true
+                        ? const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                )),
+                          )
+                        : InkWell(
+                            onTap: onTapFavorite,
+                            child: CircleAvatar(
+                                radius: 13,
+                                backgroundColor: Colors.white70,
+                                child: Icon(
+                                  isFavorite == true
+                                      ? Icons.favorite
+                                      : Icons.favorite_border_outlined,
+                                  size: 14,
+                                  color: textColor4,
+                                )),
+                          )),
+                Positioned(
+                  left: 5,
+                  top: 5,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: (forSale == 'Sell' || forSale == 'For Sell')
+                          ? Colors.green.shade50
+                          : (forSale == 'Rent' || forSale == 'For Rent')
+                              ? Colors.white70
+                              : accentColor.withOpacity(0.2),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 3.0, horizontal: 3.0),
+                      child: Text(
+                        forSale,
+                        style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                            color: (forSale == 'Sell' || forSale == 'For Sell')
+                                ? Colors.green.shade800
+                                : (forSale == 'Rent' || forSale == 'For Rent')
+                                    ? textColor4.withOpacity(0.8)
+                                    : accentColor.withOpacity(0.8),
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ),
+                )
+                // (views == "0" || views == "" || views.contains("null"))
+                //     ? const Offstage()
+                //     : Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: Container(
+                //           decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(8),
+                //             color: Colors.orange,
+                //           ),
+                //           child: Padding(
+                //             padding: const EdgeInsets.symmetric(
+                //                 vertical: 5.0, horizontal: 8.0),
+                //             child: Row(
+                //               mainAxisSize: MainAxisSize.min,
+                //               children: [
+                //                 const Icon(
+                //                   size: 18,
+                //                   Icons.visibility,
+                //                   color: Colors.white,
+                //                 ),
+                //                 const Gap(5.0),
+                //                 Text(
+                //                   views ?? "",
+                //                   style: Theme.of(context)
+                //                       .textTheme
+                //                       .labelSmall!
+                //                       .copyWith(color: Colors.white),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //         ),
+                //       )
+              ],
+            ),
+          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         decoration: BoxDecoration(
+          //           borderRadius: BorderRadius.circular(4.0),
+          //           color: (forSale == 'Sell' || forSale == 'For Sell')
+          //               ? Colors.green.shade50
+          //               : (forSale == 'Rent' || forSale == 'For Rent')
+          //                   ? textColor4.withOpacity(0.1)
+          //                   : accentColor.withOpacity(0.2),
+          //         ),
+          //         child: Padding(
+          //           padding: const EdgeInsets.symmetric(
+          //               vertical: 3.0, horizontal: 3.0),
+          //           child: Text(
+          //             forSale,
+          //             style: Theme.of(context).textTheme.labelSmall!.copyWith(
+          //                 color: (forSale == 'Sell' || forSale == 'For Sell')
+          //                     ? Colors.green.shade800
+          //                     : (forSale == 'Rent' || forSale == 'For Rent')
+          //                         ? textColor4.withOpacity(0.8)
+          //                         : accentColor.withOpacity(0.8),
+          //                 fontSize: 10,
+          //                 fontWeight: FontWeight.w600),
+          //           ),
+          //         ),
+          //       ),
+          //       const Gap(3.0),
+          //       Container(
+          //         decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(4.0),
+          //             color: Colors.blue.shade50),
+          //         child: Padding(
+          //           padding: const EdgeInsets.symmetric(
+          //               vertical: 3.0, horizontal: 3.0),
+          //           child: Text(
+          //             type,
+          //             style: Theme.of(context).textTheme.labelSmall!.copyWith(
+          //                 color: Colors.blue.shade800,
+          //                 fontSize: 10,
+          //                 fontWeight: FontWeight.w600),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          InkWell(
+            onTap: onTap,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: SizedBox(
+                child: Text(
+                    // "Ravathpura Property Group",
+                    maxLines: 1,
+                    title,
+                    textAlign: TextAlign.left,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall!
+                        .copyWith(fontWeight: FontWeight.w700, fontSize: 12)),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: SizedBox(
+              child: Text(
+                  // "Ravathpura Property Group",
+                  maxLines: 1,
+                  "In ${address}",
+                  textAlign: TextAlign.left,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 10,
+                      color: subTitleColor)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: RichText(
+                text: TextSpan(
+              // text: "${AppText.rupeeSymbol} ${formattedNumber ?? ""}",
+              text: price == ""
+                  ? ""
+                  : "${NumberFormat.currency(locale: 'HI', symbol: AppText.rupeeSymbol, decimalDigits: 0).format(int.parse(price))} ",
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall!
+                  .copyWith(color: accentColor, fontWeight: FontWeight.bold),
+            )),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: FeaturedPropertyGridCardShowOptions(
+              size: size,
+              forSale: forSale,
+              type: type,
+              subType: subType,
+              floorType: floorType,
+              priceType: priceType,
+              constructionSize: constructionSize,
+              openSide: openSide,
+              propertyFace: (propertyFace.isNotEmpty == true)
+                  ? propertyFace.split(',').join(',\n')
+                  : "",
+              flatType: flatType,
+              propertyInterior: propertyInterior,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: onTapCall,
+                child: CircleAvatar(
+                  radius: 16,
+                  child: Icon(
+                    Icons.call,
+                    size: 18,
+                    color: secondaryColor,
+                  ),
+                ),
+              ),
+              // const Gap(5.0),
+              InkWell(
+                onTap: onTapWhatsapp,
+                child: CircleAvatar(
+                  radius: 16,
+                  child: SvgPicture.asset(
+                    "assets/svg/whatsappSvg.svg",
+                    height: 18,
+                    width: 18,
+                  ),
+                ),
+              ),
+              // const Gap(5.0),
+              InkWell(
+                onTap: onTapShare,
+                child: const CircleAvatar(
+                  radius: 18,
+                  child: Icon(
+                    Icons.share,
+                    size: 18,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          // const Gap(20),
+        ],
       ),
     );
   }

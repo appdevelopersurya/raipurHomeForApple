@@ -16,33 +16,32 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       flexibleSpace: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFFffffff),
-              Color(0xFFf3ef66),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+          // decoration: BoxDecoration(gradient: defaultGradient3),
           ),
-        ),
-      ),
       // backgroundColor: secondaryColor,
       elevation: 1,
       centerTitle: true,
       title: Text(
         title,
         style:
-            Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor2),
+            Theme.of(context).textTheme.labelLarge!.copyWith(color: textColor),
       ),
-      leading: InkWell(
-        onTap: () {
-          context.read<GetImageFromUser>().removeImage();
-          Navigator.pop(context);
-        },
-        child: Icon(
-          Icons.arrow_back,
-          color: textColor2,
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(width: 1, color: borderColor)),
+          child: InkWell(
+            onTap: () {
+              context.read<GetImageFromUser>().removeImage();
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back,
+              color: iconColor,
+            ),
+          ),
         ),
       ),
     );

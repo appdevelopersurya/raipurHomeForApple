@@ -7,6 +7,7 @@ import 'package:fmraipuromes/data/modal/webViewModal.dart';
 import 'package:fmraipuromes/screens/Fovorite/view/favoriteView.dart';
 import 'package:fmraipuromes/screens/Home/view/homeView.dart';
 import 'package:fmraipuromes/screens/MainHome/view/mainHomeView.dart';
+import 'package:fmraipuromes/screens/Notification/view/notificationView.dart';
 import 'package:fmraipuromes/screens/OnBoardScreen/view/onBoardScreen.dart';
 import 'package:fmraipuromes/screens/Profile/AreaConverter/view/areaCalculator.dart';
 import 'package:fmraipuromes/screens/Profile/PersonalDetails/view/profileEditView.dart';
@@ -51,21 +52,21 @@ class Routes {
       case AppRoutes.otpVerification:
         return MaterialPageRoute(
             builder: (BuildContext context) => VerifyOTPView(
-              sentOtpResponseModel: args as SentOtpResponseModel,
-            ));
+                  sentOtpResponseModel: args as SentOtpResponseModel,
+                ));
       case AppRoutes.signUp:
         return MaterialPageRoute(
             builder: (BuildContext context) => const RegistrationView());
       case AppRoutes.popularLocations:
         return MaterialPageRoute(
             builder: (BuildContext context) => PopularAllList(
-              allListArgsModal: args as PopularAllListArgsModal,
-            ));
+                  allListArgsModal: args as PopularAllListArgsModal,
+                ));
       case AppRoutes.propertyDetailView:
         return MaterialPageRoute(
             builder: (BuildContext context) => PropertyDetailsView(
-              propertyID: args.toString(),
-            ));
+                  propertyID: args.toString(),
+                ));
       case AppRoutes.favoriteView:
         return MaterialPageRoute(
             builder: (BuildContext context) => const FavoriteView());
@@ -82,8 +83,8 @@ class Routes {
       case AppRoutes.mainFilter:
         return MaterialPageRoute(
             builder: (BuildContext context) => MainFilter(
-              passFilterModel: args as PassFilterModel,
-            ));
+                  passFilterModel: args as PassFilterModel,
+                ));
       case AppRoutes.areaCalc:
         return MaterialPageRoute(
             builder: (BuildContext context) => const AreaCalculator());
@@ -124,14 +125,18 @@ class Routes {
         return MaterialPageRoute(
           builder: (context) => const OurProjectsListView(),
         );
+      case AppRoutes.notifications:
+        return MaterialPageRoute(
+          builder: (context) => const NotificationView(),
+        );
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(
             body: Center(
                 child: Text(
-                  "No route defined",
-                  style: Theme.of(_).textTheme.titleMedium,
-                )),
+              "No route defined",
+              style: Theme.of(_).textTheme.titleMedium,
+            )),
           );
         });
     }

@@ -1,3 +1,5 @@
+import '../data/modal/PriceModel.dart';
+
 class Formatter {
   static String formatNumber(String numberStr) {
     double? number = double.tryParse(numberStr);
@@ -28,5 +30,185 @@ class Formatter {
       // Value less than thousand
       return number.toStringAsFixed(0);
     }
+  }
+
+  static List<PriceModel> generateBuyPriceList(int maxPrice) {
+    List<PriceModel> priceList = [];
+    double start = 500000;
+    double interval = 500000;
+    int id = 1;
+
+    for (double price = start; price <= maxPrice; price += interval) {
+      priceList.add(PriceModel(
+        id: id++,
+        title: Formatter.formatNumber(price.toString()),
+        actualPrice: price,
+      ));
+    }
+
+    // Add "No Min" at index 0
+    priceList.insert(
+        0,
+        PriceModel(
+          id: 0,
+          title: "No Min",
+          actualPrice: 0.0,
+        ));
+
+    return priceList;
+  }
+
+  static List<PriceModel> generateBuyMaxPriceList(int maxPrice) {
+    List<PriceModel> priceList = [];
+    double start = 500000;
+    double interval = 500000;
+    int id = 1;
+
+    for (double price = start; price <= maxPrice; price += interval) {
+      priceList.add(PriceModel(
+        id: id++,
+        title: Formatter.formatNumber(price.toString()),
+        actualPrice: price,
+      ));
+    }
+
+    // Add "No Min" at index 0
+    priceList.insert(
+        0,
+        PriceModel(
+          id: 0,
+          title: "No Max",
+          actualPrice: 0.0,
+        ));
+
+    return priceList;
+  }
+
+  static List<PriceModel> generateRentPriceList(int maxPrice) {
+    List<PriceModel> priceList = [];
+    double start = 5000;
+    double interval = 5000;
+    int id = 1;
+
+    for (double price = start; price <= maxPrice; price += interval) {
+      priceList.add(PriceModel(
+        id: id++,
+        title: Formatter.formatNumber(price.toString()),
+        actualPrice: price,
+      ));
+    }
+
+    // Add "No Min" at index 0
+    priceList.insert(
+        0,
+        PriceModel(
+          id: 0,
+          title: "No Min",
+          actualPrice: 0.0,
+        ));
+
+    return priceList;
+  }
+
+  static List<PriceModel> generateRentMaxPriceList(int maxPrice) {
+    List<PriceModel> priceList = [];
+    double start = 5000;
+    double interval = 5000;
+    int id = 1;
+
+    for (double price = start; price <= maxPrice; price += interval) {
+      priceList.add(PriceModel(
+        id: id++,
+        title: Formatter.formatNumber(price.toString()),
+        actualPrice: price,
+      ));
+    }
+
+    // Add "No Min" at index 0
+    priceList.insert(
+        0,
+        PriceModel(
+          id: 0,
+          title: "No Max",
+          actualPrice: 0.0,
+        ));
+
+    return priceList;
+  }
+
+  static List<PriceModel> generateAreaSqftListMin(int maxPrice) {
+    List<PriceModel> priceList = [];
+    double start = 500; // Starting value
+    double interval = 1000; // Interval of 1000
+    int id = 1;
+
+    // Generate prices from start to the smaller of maxPrice or 10000
+    for (double price = start;
+        price <= maxPrice && price <= 10000;
+        price += interval) {
+      priceList.add(PriceModel(
+        id: id++,
+        title: price.toStringAsFixed(0), // Convert to string without suffix
+        actualPrice: price,
+      ));
+    }
+
+    // Ensure 10000 is included if maxPrice allows it
+    if (maxPrice >= 10000) {
+      priceList.add(PriceModel(
+        id: id,
+        title: "10000 +", // Explicitly add 10000
+        actualPrice: 10000,
+      ));
+    }
+
+    // Add "No Min" at index 0
+    priceList.insert(
+        0,
+        PriceModel(
+          id: 0,
+          title: "No Min",
+          actualPrice: 0.0,
+        ));
+
+    return priceList;
+  }
+
+  static List<PriceModel> generateAreaSqftListMax(int maxPrice) {
+    List<PriceModel> priceList = [];
+    double start = 500; // Starting value
+    double interval = 1000; // Interval of 1000
+    int id = 1;
+
+    // Generate prices from start to the smaller of maxPrice or 10000
+    for (double price = start;
+        price <= maxPrice && price <= 10000;
+        price += interval) {
+      priceList.add(PriceModel(
+        id: id++,
+        title: price.toStringAsFixed(0), // Convert to string without suffix
+        actualPrice: price,
+      ));
+    }
+
+    // Ensure 10000 is included if maxPrice allows it
+    if (maxPrice >= 10000) {
+      priceList.add(PriceModel(
+        id: id,
+        title: "10000 +", // Explicitly add 10000
+        actualPrice: 10000,
+      ));
+    }
+
+    // Add "No Min" at index 0
+    priceList.insert(
+        0,
+        PriceModel(
+          id: 0,
+          title: "No Max",
+          actualPrice: 0.0,
+        ));
+
+    return priceList;
   }
 }

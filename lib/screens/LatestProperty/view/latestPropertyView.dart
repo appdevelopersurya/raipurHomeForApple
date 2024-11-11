@@ -18,8 +18,12 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../constant/appText.dart';
 import '../../../constant/color.dart';
+import '../../../repository/getFilterTools.dart';
+import '../../../utils/DraggableModalBottomSheet.dart';
 import '../../../utils/FeaturedPropertyCard.dart';
 import '../../Drawer/view/mainDrawerNew.dart';
+import '../../Profile/viewModel/profileViewModel.dart';
+import '../../SubPages/Support/supportViewModel.dart';
 
 class LatestPropertyView extends StatefulWidget {
   const LatestPropertyView({super.key});
@@ -77,36 +81,33 @@ class _LatestPropertyViewState extends State<LatestPropertyView> {
           key: _scaffoldKey,
           appBar: AppBar(
             flexibleSpace: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xFFffffff),
-                    Color(0xFFf3ef66),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+                // decoration: BoxDecoration(gradient: defaultGradient3),
                 ),
-              ),
-            ),
             // backgroundColor: secondaryColor,
             elevation: 1,
             centerTitle: true,
             automaticallyImplyLeading: false,
             leading: Padding(
-              padding: const EdgeInsets.all(13.0),
-              child: InkWell(
-                  onTap: () => _scaffoldKey.currentState!.openDrawer(),
-                  child: Icon(
-                    Icons.menu,
-                    color: textColor2,
-                  )),
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 1, color: borderColor)),
+                child: InkWell(
+                    onTap: () =>
+                        _showDraggableModalSheet(context, 'Home Menu', 20),
+                    child: Icon(
+                      Icons.menu,
+                      color: iconColor,
+                    )),
+              ),
             ),
             title: Text(
               "Latest Properties",
               style: Theme.of(context)
                   .textTheme
                   .labelLarge!
-                  .copyWith(color: textColor2),
+                  .copyWith(color: textColor),
             ),
           ),
           body: latestPropertyController.isLoading == true
@@ -116,21 +117,22 @@ class _LatestPropertyViewState extends State<LatestPropertyView> {
                   child: const ListViewBuilderSkeleton())
               : latestPropertyController.allPropertyModel.data?.length == 0
                   ? Center(child: Lottie.asset("assets/gif/noData.json"))
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
+                  : GridView.builder(
                       padding: EdgeInsets.zero,
+                      // Setting grid layout
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 1,
+                        childAspectRatio: 0.625,
+                      ),
                       itemCount: latestPropertyController
                               .allPropertyModel.data?.length ??
                           0,
                       itemBuilder: (context, index) {
-                        return FadeInDown(
-                            child: InkWell(
-                          onTap: () => Navigator.pushNamed(
-                              context, AppRoutes.propertyDetailView,
-                              arguments: latestPropertyController
-                                  .allPropertyModel.data?[index].serviceId),
-                          child: FeaturedPropertyCardForHome(
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: FeaturedPropertyGridCardForHome(
                             onTapShare: () {
                               Share.share(
                                   "🏡 Property Title : \n${latestPropertyController.allPropertyModel.data?[index].title.toString()}"
@@ -142,7 +144,7 @@ class _LatestPropertyViewState extends State<LatestPropertyView> {
                                   "\n📏 Size : ${latestPropertyController.allPropertyModel.data?[index].size.toString()} SQFT"
                                   "\n\nDiscover this fantastic property! Located in a prime area, it offers excellent value with plenty of space to suit your needs. Click the link to learn more and share with your friends!"
                                   "\n\nCheck out through this link :"
-                                  "\nhttps://www.raipurhomes.com/property-details/${latestPropertyController.allPropertyModel.data?[index].titleSlug.toString()}-${latestPropertyController.allPropertyModel.data?[index].serviceId.toString()}");
+                                  "\nhttps://www.raipurhomes.com/property-details/\n${latestPropertyController.allPropertyModel.data?[index].titleSlug.toString()}-${latestPropertyController.allPropertyModel.data?[index].serviceId.toString()}");
                             },
                             onTapFavorite: () {
                               if (box.read("access_token_raipurHomes") == "") {
@@ -295,7 +297,7 @@ class _LatestPropertyViewState extends State<LatestPropertyView> {
                                     ).format(int.parse(latestPropertyController.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
                                     "\n📏 Size : ${latestPropertyController.allPropertyModel.data?[index].size.toString()} SQFT"
                                     "\n\nProperty Link Here:"
-                                    "\nhttps://www.raipurhomes.com/property-details/${latestPropertyController.allPropertyModel.data?[index].titleSlug.toString()}-${latestPropertyController.allPropertyModel.data?[index].serviceId.toString()}"),
+                                    "\nhttps://www.raipurhomes.com/property-details/\n${latestPropertyController.allPropertyModel.data?[index].titleSlug.toString()}-${latestPropertyController.allPropertyModel.data?[index].serviceId.toString()}"),
                             views: latestPropertyController
                                     .allPropertyModel.data?[index].visitCount
                                     .toString() ??
@@ -366,11 +368,33 @@ class _LatestPropertyViewState extends State<LatestPropertyView> {
                                     .toString() ??
                                 "",
                           ),
-                        ));
+                        );
                       },
                     ),
         ),
       ),
+    );
+  }
+
+  // Menu
+  void _showDraggableModalSheet(
+      BuildContext context, String title, int itemCount) {
+    final profileViewController =
+        Provider.of<ProfileViewModel>(context, listen: false);
+    final filterToolViewModel =
+        Provider.of<GetFilterTools>(context, listen: false);
+    final supportViewController =
+        Provider.of<SupportViewModel>(context, listen: false);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return DraggableModalBottomSheet(
+          title: title,
+          itemCount: itemCount,
+        );
+      },
     );
   }
 }

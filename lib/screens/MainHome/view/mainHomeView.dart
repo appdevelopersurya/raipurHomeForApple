@@ -1,21 +1,17 @@
-import 'dart:io';
-
 import 'package:animate_do/animate_do.dart';
-import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fmraipuromes/app/routes/routes.dart';
 import 'package:fmraipuromes/constant/color.dart';
 import 'package:fmraipuromes/helper/GetStorageHelper.dart';
+import 'package:fmraipuromes/screens/Fovorite/view/favoriteView.dart';
 import 'package:fmraipuromes/screens/Home/view/homeView.dart';
 import 'package:fmraipuromes/screens/LatestProperty/view/latestPropertyView.dart';
 import 'package:fmraipuromes/screens/Profile/view/ProfileView.dart';
 import 'package:fmraipuromes/utils/CustomButton.dart';
 import 'package:gap/gap.dart';
-import 'package:get_ip_address/get_ip_address.dart';
 import 'package:provider/provider.dart';
 
-import '../../../repository/persmissionHandler.dart';
 import '../../Notification/view/notificationView.dart';
 import '../viewModal/mainHomeViewModal.dart';
 
@@ -28,57 +24,11 @@ class MainHomeView extends StatefulWidget {
 
 class _MainHomeViewState extends State<MainHomeView> {
   PageController _pageController = PageController(initialPage: 0);
-  final PermissionHandlerService _permissionHandler =
-      PermissionHandlerService();
-  Future<void> _requestPermissions() async {
-    bool allPermissionsGranted =
-        await _permissionHandler.requestAllPermissions();
-    if (allPermissionsGranted) {
-      print("All permissions granted!");
-    } else {
-      print("Some permissions were not granted.");
-    }
-  }
 
   @override
   void initState() {
-    _requestPermissions();
-    getNetworkIP();
     _pageController = PageController(initialPage: 0);
     super.initState();
-  }
-
-  Future<void> getNetworkIP() async {
-    try {
-      if (Platform.isIOS) {
-        // iOS-specific logic
-        final status =
-            await AppTrackingTransparency.requestTrackingAuthorization();
-        if (status == TrackingStatus.authorized) {
-          await fetchIpAddress();
-        } else {
-          print("User denied permission for tracking on iOS.");
-        }
-      } else if (Platform.isAndroid) {
-        // Android-specific logic (ATT is not applicable)
-        await fetchIpAddress();
-      } else {
-        print("Unsupported platform");
-      }
-    } on IpAddressException catch (exception) {
-      /// Handle the exception.
-      print("IP Address Error: ${exception.message}");
-    } catch (e) {
-      print("Unexpected Error: $e");
-    }
-  }
-
-  Future<void> fetchIpAddress() async {
-    var ipAddress = IpAddress(type: RequestType.json);
-    dynamic data = await ipAddress.getIpAddress();
-    String deviceIp = data["ip"].toString();
-    box.write("rprHomesDeviceIP", deviceIp);
-    print("Device IP Address: ${data["ip"].toString()}");
   }
 
   @override
@@ -90,7 +40,7 @@ class _MainHomeViewState extends State<MainHomeView> {
   final List<Widget> Pages = [
     const HomeView(),
     const LatestPropertyView(),
-    const NotificationView(),
+    const FavoriteView(),
     const ProfileView(),
   ];
 
@@ -250,7 +200,7 @@ class _MainHomeViewState extends State<MainHomeView> {
                             },
                           );
                         } else {
-                          Navigator.pushNamed(context, AppRoutes.favoriteView);
+                          Navigator.pushNamed(context, AppRoutes.postProperty);
                         }
                       },
                       child: Container(
@@ -260,7 +210,7 @@ class _MainHomeViewState extends State<MainHomeView> {
                         child: const Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Icon(
-                            Icons.favorite_border,
+                            Icons.add,
                             size: 27,
                             color: Colors.white,
                           ),
@@ -273,8 +223,8 @@ class _MainHomeViewState extends State<MainHomeView> {
                       },
                       icon: Icon(
                         mainHomeProvider.currentIndex == 2
-                            ? Icons.notifications_active
-                            : Icons.notifications_on_outlined,
+                            ? Icons.favorite
+                            : Icons.favorite_border,
                         size: 30.0,
                         color: mainHomeProvider.currentIndex == 2
                             ? secondaryColor

@@ -24,7 +24,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constant/color.dart';
 import '../../../data/modal/PopularAllListArgModal.dart';
+import '../../../repository/getFilterTools.dart';
+import '../../../utils/DraggableModalBottomSheet.dart';
 import '../../Drawer/view/mainDrawerNew.dart';
+import '../../SubPages/Support/supportViewModel.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -69,6 +72,28 @@ class _ProfileViewState extends State<ProfileView> {
     super.initState();
   }
 
+  // Menu
+  void _showDraggableModalSheet(
+      BuildContext context, String title, int itemCount) {
+    final profileViewController =
+        Provider.of<ProfileViewModel>(context, listen: false);
+    final filterToolViewModel =
+        Provider.of<GetFilterTools>(context, listen: false);
+    final supportViewController =
+        Provider.of<SupportViewModel>(context, listen: false);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return DraggableModalBottomSheet(
+          title: title,
+          itemCount: itemCount,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mainHomeController = Provider.of<MainHomeViewViewModal>(context);
@@ -83,28 +108,24 @@ class _ProfileViewState extends State<ProfileView> {
         drawer: const MainDrawerNew(),
         appBar: AppBar(
           flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFffffff),
-                  Color(0xFFf3ef66),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+              // decoration: BoxDecoration(gradient: defaultGradient3),
               ),
-            ),
-          ),
           // backgroundColor: secondaryColor,
           elevation: 1,
           centerTitle: true,
           automaticallyImplyLeading: false,
           leading: Padding(
-            padding: const EdgeInsets.all(13.0),
-            child: InkWell(
-              onTap: () => _scaffoldKey.currentState!.openDrawer(),
-              child: Icon(
-                Icons.menu,
-                color: textColor2,
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 1, color: borderColor)),
+              child: InkWell(
+                onTap: () => _showDraggableModalSheet(context, 'Home Menu', 20),
+                child: Icon(
+                  Icons.menu,
+                  color: iconColor,
+                ),
               ),
             ),
           ),
@@ -113,7 +134,7 @@ class _ProfileViewState extends State<ProfileView> {
             style: Theme.of(context)
                 .textTheme
                 .labelLarge!
-                .copyWith(color: textColor2),
+                .copyWith(color: textColor),
           ),
         ),
         body: ListView(
@@ -224,7 +245,7 @@ class _ProfileViewState extends State<ProfileView> {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.0),
-                      color: secondaryColor,
+                      gradient: defaultGradient3,
                       boxShadow: [
                         BoxShadow(
                           color: accentColor.withOpacity(0.2),
@@ -252,7 +273,9 @@ class _ProfileViewState extends State<ProfileView> {
                                 .textTheme
                                 .labelSmall!
                                 .copyWith(
-                                    color: buttonTextColor, fontSize: 13.0),
+                                    fontWeight: FontWeight.bold,
+                                    color: buttonTextColor,
+                                    fontSize: 14.0),
                           ),
                         ],
                       ),

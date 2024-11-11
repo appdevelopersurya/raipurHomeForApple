@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fmraipuromes/data/modal/AllPropertyModel.dart';
 import 'package:fmraipuromes/data/modal/FavoriteAddModel.dart';
@@ -35,6 +36,10 @@ class GetFilterTools extends ChangeNotifier {
           .toList();
     }
     _locations = result!;
+    print("locations====> ${_locations.map(
+      (element) => element.name,
+    )}");
+
     notifyListeners();
   }
 
@@ -55,6 +60,19 @@ class GetFilterTools extends ChangeNotifier {
           .toList();
     }
     _propertyTypes = result!;
+    if (kDebugMode) {
+      result.forEach(
+        (element) {
+          print("psubtyep search=====> ${element.name}");
+        },
+      );
+    }
+    notifyListeners();
+  }
+
+  void resetSearch() {
+    _propertyTypes = _filterToolsDataModel.propertyType ?? [];
+    _locations = _filterToolsDataModel.location ?? [];
     notifyListeners();
   }
 
@@ -133,16 +151,13 @@ class GetFilterTools extends ChangeNotifier {
 
   int? get categoryID => _categoryID;
 
-  int? _isVerified = 0;
+  String? _isVerified = "BUY"; // Default selection for "BUY"
 
-  int? get isVerified => _isVerified;
+  String? get isVerified => _isVerified;
 
-  setIsVerified(int value) {
-    // _isVerified = !_isVerified;
+  void setIsVerified(String value) {
     _isVerified = value;
-
     print("Verified $_isVerified");
-
     notifyListeners();
   }
 
@@ -174,7 +189,7 @@ class GetFilterTools extends ChangeNotifier {
       _selectedAreaName.add(name);
     }
 
-    print("SelectedAreas: $_selectedAreas");
+    print("SelectedAreas: $_selectedAreas-$selectedAreaName");
 
     notifyListeners();
   }
@@ -195,16 +210,24 @@ class GetFilterTools extends ChangeNotifier {
   List<String> get selectedPropertyTypeName => _selectedPropertyTypeName;
 
   void toggleSelectedPropertyType(String pType, String name) {
-    if (_selectedPropertyType.contains(pType) &&
-        _selectedPropertyTypeName.contains(name)) {
+    bool isSelected = _selectedPropertyType.contains(pType) &&
+        _selectedPropertyTypeName.contains(name);
+
+    if (isSelected) {
+      // Remove property type and name if already selected
       _selectedPropertyType.remove(pType);
       _selectedPropertyTypeName.remove(name);
     } else {
+      // Add property type and name if not selected
       _selectedPropertyType.add(pType);
       _selectedPropertyTypeName.add(name);
     }
-    print("Selected P Type : $_selectedPropertyType");
 
+    // Debug output to track selected property types
+    print(
+        "Selected Property Type: $_selectedPropertyType-$_selectedPropertyTypeName");
+
+    // Notify listeners to update UI
     notifyListeners();
   }
 
@@ -218,14 +241,21 @@ class GetFilterTools extends ChangeNotifier {
 
   List<String> get selectedSubPropertyType => _selectedSubPropertyType;
 
-  void toggleSelectedSubPropertyType(String spType) {
-    if (_selectedSubPropertyType.contains(spType)) {
+  final List<String> _selectedPropertySubTypeName = [];
+
+  List<String> get selectedPropertySubTypeName => _selectedPropertySubTypeName;
+
+  void toggleSelectedSubPropertyType(String spType, String name) {
+    if (_selectedSubPropertyType.contains(spType) &&
+        _selectedPropertySubTypeName.contains(name)) {
       _selectedSubPropertyType.remove(spType);
+      _selectedPropertySubTypeName.remove(name);
     } else {
       _selectedSubPropertyType.add(spType);
+      _selectedPropertySubTypeName.add(name);
     }
-    print("Selected Sub Property Type : $_selectedSubPropertyType");
-
+    print(
+        "Selected Sub Property Type : $_selectedSubPropertyType-$_selectedPropertySubTypeName");
     notifyListeners();
   }
 
@@ -236,17 +266,23 @@ class GetFilterTools extends ChangeNotifier {
 
   // ByBuilder
   final List<String> _selectedByBuilder = [];
+  final List<String> _selectedByBuilderName = [];
 
   List<String> get selectedByBuilder => _selectedByBuilder;
 
-  void toggleSelectedByBuilder(String builderType) {
-    if (_selectedByBuilder.contains(builderType)) {
+  List<String> get selectedByBuilderName => _selectedByBuilderName;
+
+  void toggleSelectedByBuilder(String builderType, String builderTypeName) {
+    if (_selectedByBuilder.contains(builderType) &&
+        _selectedByBuilderName.contains(builderTypeName)) {
       _selectedByBuilder.remove(builderType);
+      _selectedByBuilderName.remove(builderTypeName);
     } else {
       _selectedByBuilder.add(builderType);
+      _selectedByBuilderName.add(builderTypeName);
     }
 
-    print("Selected by builder : $_selectedByBuilder");
+    print("Selected by builder : $_selectedByBuilder-$selectedByBuilderName");
 
     notifyListeners();
   }
@@ -256,21 +292,20 @@ class GetFilterTools extends ChangeNotifier {
     return _selectedByBuilder.contains(builderType);
   }
 
-  // BHK Types
+// BHK Types
 
   final List<String> _selectedBHKType = [];
 
   List<String> get selectedBHKType => _selectedBHKType;
 
-  void toggleSelectedBHKType(String bhkType) {
-    if (_selectedBHKType.contains(bhkType)) {
-      _selectedBHKType.remove(bhkType);
+  void toggleSelectedBHKType(String bhkNumber) {
+    if (_selectedBHKType.contains('"$bhkNumber"')) {
+      _selectedBHKType.remove('"$bhkNumber"');
     } else {
-      _selectedBHKType.add(bhkType);
+      _selectedBHKType.add('"$bhkNumber"');
     }
-
-    print("Selected BHK Type : $_selectedBHKType");
-
+    // Print with quotes around the result
+    print("Selected BHK Type: $_selectedBHKType");
     notifyListeners();
   }
 
@@ -396,45 +431,129 @@ class GetFilterTools extends ChangeNotifier {
     notifyListeners();
   }
 
+  String _priceMinTitle = "No Min";
+
+  String get priceMinTitle => _priceMinTitle;
+
+  double _priceMinValue = 0.0;
+
+  double get priceMinValue => _priceMinValue;
+
+  void setPriceMinValue(String priceTitle, double actualPrice) {
+    _priceMinTitle = priceTitle;
+    _priceMinValue = actualPrice;
+    priceRangeValueBuy1 = actualPrice;
+    notifyListeners();
+  }
+
+  String _priceMaxTitle = "No Max";
+
+  String get priceMaxTitle => _priceMaxTitle;
+
+  double _priceMaxValue = 0.0;
+
+  double get priceMaxValue => _priceMaxValue;
+
+  void setPriceMaxValue(String priceTitle, double actualPrice) {
+    _priceMaxTitle = priceTitle;
+    _priceMaxValue = actualPrice;
+    priceRangeValueBuy2 = actualPrice;
+    notifyListeners();
+  }
+
+  String _sqftMinTitle = "No Min";
+
+  String get sqftMinTitle => _sqftMinTitle;
+
+  double _sqftMinValue = 0.0;
+
+  double get sqftMinValue => _sqftMinValue;
+
+  void setSqftMinValue(String priceTitle, double actualPrice) {
+    _sqftMinTitle = priceTitle;
+    _sqftMinValue = actualPrice;
+    areaRangeValue1 = actualPrice;
+    notifyListeners();
+  }
+
+  String _sqftMaxTitle = "No Max";
+
+  String get sqftMaxTitle => _sqftMaxTitle;
+
+  double _sqftMaxValue = 0.0;
+
+  double get sqftMaxValue => _sqftMaxValue;
+
+  void setSqftMaxValue(String priceTitle, double actualPrice) {
+    _sqftMaxTitle = priceTitle;
+    _sqftMaxValue = actualPrice;
+    areaRangeValue2 = actualPrice;
+    notifyListeners();
+  }
+
+  double? _disKm = 0.0;
+
+  double? get disKm => _disKm;
+
+  setDistKm(double value) {
+    _disKm = value;
+    notifyListeners();
+  }
+
   void clearAllFilters() {
     _selectedAreas.clear();
     _selectedAreaName.clear();
     _selectedPropertyType.clear();
     _selectedPropertyTypeName.clear();
     _selectedSubPropertyType.clear();
-    _selectedSubPropertyType.clear();
+    _selectedPropertySubTypeName.clear();
     _selectedByBuilder.clear();
+    _selectedByBuilderName.clear();
     _selectedBHKType.clear();
     _selectedConstructionType.clear();
     _selectedPropertyInterior.clear();
 
+    // Resetting range and min/max values
+    areaRangeValue1 = 0.0;
+    areaRangeValue2 = 0.0;
+    _valuesAreaRange = const SfRangeValues(500.0, 30000.0);
+
+    priceRangeValueRent1 = 0.0;
+    priceRangeValueRent2 = 0.0;
+    _valuesPriceRent = const SfRangeValues(5000.0, 500000.0);
+
+    priceRangeValueBuy1 = 0.0;
+    priceRangeValueBuy2 = 0.0;
+    _valuesPriceBuy = const SfRangeValues(1000000.0, 50000000.0);
+
+    areaRangeKm1 = 0.0;
+    areaRangeKm2 = 0.0;
+    _valuesAreaRangeKm = const SfRangeValues(0.0, 5.0);
+
+    _priceMinTitle = "No Min";
+    _priceMinValue = 0.0;
+
+    _priceMaxTitle = "No Max";
+    _priceMaxValue = 0.0;
+
+    _sqftMinTitle = "No Min";
+    _sqftMinValue = 0.0;
+
+    _sqftMaxTitle = "No Max";
+    _sqftMaxValue = 0.0;
+
+    _disKm = null;
+
     _isFilter = false;
     _isSearchBox = false;
-    _isVerified = 0;
+    _categoryID = null;
+    _isVerified = "BUY"; // Resetting to default
     _isSuperAgent = false;
     _isVoiceEnable = false;
     _isAvailable = false;
 
-    _valuesPriceBuy = const SfRangeValues(1000000.0, 50000000.0);
-    priceRangeValueBuy1 = 0.0;
-    priceRangeValueBuy2 = 0.0;
-
-    _valuesAreaRange = const SfRangeValues(500.0, 30000.0);
-    areaRangeValue1 = 0.0;
-    areaRangeValue2 = 0.0;
-
-    _valuesPriceRent = const SfRangeValues(5000.0, 500000.0);
-    priceRangeValueRent1 = 0.0;
-    priceRangeValueRent2 = 0.0;
-
-    _valuesAreaRangeKm = const SfRangeValues(0.0, 5.0);
-    areaRangeKm1 = 0.0;
-    areaRangeKm2 = 0.0;
-
     notifyListeners();
   }
-
-  FavoriteAddModel _favoriteAddModel = FavoriteAddModel();
 
   FavoriteAddModel get favoriteAddModel => FavoriteAddModel();
 
@@ -447,7 +566,6 @@ class GetFilterTools extends ChangeNotifier {
     try {
       final response = await _apiService.getPostApiResponse(
           false, AppUrl.baseUrl + AppUrl.authEndPoints.setFavorite, body);
-      _favoriteAddModel = FavoriteAddModel.fromJson(response);
       notifyListeners();
     } catch (e) {
       rethrow;

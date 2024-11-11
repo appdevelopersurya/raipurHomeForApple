@@ -11,7 +11,7 @@ class LocationService {
       // Check if location services are enabled
       if (!await Geolocator.isLocationServiceEnabled()) {
         Utils.toastMessage("Location services are disabled", warningColor);
-        await Geolocator.openLocationSettings();
+        // await Geolocator.openLocationSettings();
         return "Location services are disabled";
       }
 

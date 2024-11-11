@@ -6,6 +6,8 @@ import 'package:fmraipuromes/constant/color.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
+import '../helper/amounFormatter.dart';
+
 class FeaturePropertyRecommended extends StatelessWidget {
   final String image;
   final String title;
@@ -33,6 +35,7 @@ class FeaturePropertyRecommended extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formattedNumber = Formatter.formatNumber(price ?? "0");
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -42,6 +45,13 @@ class FeaturePropertyRecommended extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12.0),
+            boxShadow: [
+              BoxShadow(
+                color: textColor2.withOpacity(0.3),
+                blurRadius: 3,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
           child: Row(
             children: [
@@ -172,11 +182,13 @@ class FeaturePropertyRecommended extends StatelessWidget {
                       children: [
                         RichText(
                             text: TextSpan(
-                          text: NumberFormat.currency(
-                                  locale: 'HI',
-                                  symbol: AppText.rupeeSymbol,
-                                  decimalDigits: 0)
-                              .format(int.parse(price)),
+                          text:
+                              "${AppText.rupeeSymbol} ${formattedNumber ?? ""}",
+                          // text: NumberFormat.currency(
+                          //         locale: 'HI',
+                          //         symbol: AppText.rupeeSymbol,
+                          //         decimalDigits: 0)
+                          //     .format(int.parse(price)),
                           style: Theme.of(context)
                               .textTheme
                               .labelLarge!
@@ -227,11 +239,10 @@ class FavoriteCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: 165,
+        height: 130,
         decoration: BoxDecoration(
-            border: Border.all(width: 1, color: secondaryColor),
             borderRadius: BorderRadius.circular(12.0),
-            color: Colors.grey.shade100,
+            color: Colors.white,
             boxShadow: [
               BoxShadow(
                   color: Colors.black.withOpacity(0.1),
@@ -253,7 +264,7 @@ class FavoriteCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12.0),
                   child: CachedNetworkImage(
-                    height: 165,
+                    height: 120,
                     width: 120,
                     fit: BoxFit.fill,
                     imageUrl: image,
@@ -271,10 +282,9 @@ class FavoriteCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+              padding: const EdgeInsets.fromLTRB(5.0, 8.0, 8.0, 8.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
@@ -282,7 +292,7 @@ class FavoriteCard extends StatelessWidget {
                     child: Text(
                       // "Montreal Quriqe Apartment",
                       title,
-                      maxLines: 3,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
@@ -299,6 +309,7 @@ class FavoriteCard extends StatelessWidget {
                         width: 18,
                         color: subTitleColor,
                       ),
+                      const Gap(5),
                       SizedBox(
                         width: 100,
                         child: Text(
@@ -316,6 +327,7 @@ class FavoriteCard extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const Gap(5),
                   Row(
                     children: [
                       Container(
@@ -331,13 +343,14 @@ class FavoriteCard extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 5.0, horizontal: 8.0),
+                              vertical: 5.0, horizontal: 5.0),
                           child: Text(
                             propertyType,
                             style: Theme.of(context)
                                 .textTheme
                                 .labelSmall!
                                 .copyWith(
+                                    fontSize: 10,
                                     color: (propertyType == 'Sell' ||
                                             propertyType == 'For Sell')
                                         ? Colors.green.shade800
@@ -349,7 +362,7 @@ class FavoriteCard extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Gap(10.0),
+                      const Gap(4.0),
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
@@ -363,6 +376,7 @@ class FavoriteCard extends StatelessWidget {
                                 .textTheme
                                 .labelSmall!
                                 .copyWith(
+                                    fontSize: 10,
                                     color: Colors.blue.shade800,
                                     fontWeight: FontWeight.w600),
                           ),
@@ -370,6 +384,7 @@ class FavoriteCard extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const Gap(5),
                   RichText(
                       text: TextSpan(
                     text: price == ""
@@ -377,8 +392,8 @@ class FavoriteCard extends StatelessWidget {
                         : "${NumberFormat.currency(locale: 'HI', symbol: AppText.rupeeSymbol, decimalDigits: 0).format(int.parse(price))} ",
                     style: Theme.of(context)
                         .textTheme
-                        .labelLarge!
-                        .copyWith(color: secondaryColor),
+                        .labelSmall!
+                        .copyWith(color: accentColor),
                   ))
                 ],
               ),
@@ -388,8 +403,8 @@ class FavoriteCard extends StatelessWidget {
                 ? const Padding(
                     padding: EdgeInsets.all(10.0),
                     child: SizedBox(
-                        width: 20,
-                        height: 20,
+                        width: 18,
+                        height: 18,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
                         )),

@@ -50,22 +50,30 @@ class HomeVIewController extends ChangeNotifier {
 
   final LocationService _currentLocation = LocationService();
 
-  void checkPermission() async {
-    String? result = await _currentLocation.checkPermission();
+  bool _isLoadingLocation = false;
 
+  bool get isLoadingLocation => _isLoadingLocation;
+
+  Future<String> checkPermission() async {
+    _isLoadingLocation = true;
+    notifyListeners(); // Notify immediately after setting to true to update the UI
+
+    String? result = await _currentLocation.checkPermission();
     print("Permission Result: $result");
 
-    if (result!.contains("Coordinates")) {
+    if (result != null && result.contains("Coordinates")) {
       List<String> lines = result.split('\n');
       _coordinates = lines[0].replaceFirst('Coordinates: ', '');
       _address = lines[1].replaceFirst('Address: ', '');
-      print("Coordinates: $_coordinates, Address: $_address");
-      notifyListeners();
+      print("addressss========> $_address");
     } else {
       _coordinates = "No Location Found";
       _address = "No address found";
       print("Location Error: $result");
     }
+    _isLoadingLocation = false;
+    notifyListeners(); // Notify again after finishing to remove the indicator
+    return result ?? "";
   }
 
   BannerDataModel _bannerDataModel = BannerDataModel();

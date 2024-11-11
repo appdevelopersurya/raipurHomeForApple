@@ -26,6 +26,7 @@ class AppRoutes {
   static const blogViewDetails = '/blogViewDetails';
   static const ourProjects = '/ourProjects';
   static const ourProjectsList = '/ourProjectsList';
+  static const notifications = '/notifications';
 }
 
 class AppRouteName {
@@ -55,4 +56,5 @@ class AppRouteName {
   static const String webView = 'webView';
   static const String blogView = 'blogView';
   static const String blogViewDetails = 'blogViewDetails';
+  static const String notifications = 'notifications';
 }

@@ -23,6 +23,7 @@ import 'package:video_player/video_player.dart';
 import '../../../../Skeletons/PropertyDetailsSkeleton.dart';
 import '../../../../constant/appText.dart';
 import '../../../../constant/color.dart';
+import '../../../../helper/amounFormatter.dart';
 
 class PropertyDetailsView extends StatefulWidget {
   final String? propertyID;
@@ -169,6 +170,8 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
     Size size = MediaQuery.of(context).size;
     final propertyDetailsPage =
         Provider.of<PropertyDetailsViewController>(context);
+    // String formattedNumber = Formatter.formatNumber(
+    //     propertyDetailsPage.porpertyDetailsDataModel.data?.pricing ?? "0");
     return Scaffold(
       body: propertyDetailsPage.isLoading == true
           ? Shimmer.fromColors(
@@ -312,8 +315,8 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                                       ).format(int.parse(propertyDetailsPage.porpertyDetailsDataModel.data?.pricing.toString() ?? ''))}"
                                           "\n📏 Size : ${propertyDetailsPage.porpertyDetailsDataModel.data?.size.toString()} SQFT"
                                           "\n\nDiscover this fantastic property! Located in a prime area, it offers excellent value with plenty of space to suit your needs. Click the link to learn more and share with your friends!"
-                                          "\n\nProperty Link Here:"
-                                          "\nhttps://www.raipurhomes.com/property-details/${propertyDetailsPage.porpertyDetailsDataModel.data?.titleSlug.toString()}-${propertyDetailsPage.porpertyDetailsDataModel.data?.serviceId.toString()}");
+                                          "\n\nCheck out though this link :"
+                                          "\nhttps://play.google.com/store/apps/details?id=com.raipurHomes");
                                     },
                                     child: const CircleAvatar(
                                       radius: 18,
@@ -516,6 +519,8 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                           padding: const EdgeInsets.all(5.0),
                           child: RichText(
                               text: TextSpan(
+                            // text:
+                            //     "${AppText.rupeeSymbol} ${formattedNumber ?? ""}",
                             text: propertyDetailsPage.porpertyDetailsDataModel
                                         .data?.pricing ==
                                     ""
@@ -560,17 +565,17 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      propertyDetailController
-                                          .setExpandedTitle();
+                                      // propertyDetailController
+                                      //     .setExpandedTitle();
                                     },
                                     child: SizedBox(
                                       width: size.width * 0.8,
                                       child: Text(
                                           textAlign: TextAlign.left,
-                                          overflow: propertyDetailController
-                                                  .isExpandedTitle
-                                              ? TextOverflow.visible
-                                              : TextOverflow.ellipsis,
+                                          // overflow: propertyDetailController
+                                          //         .isExpandedTitle
+                                          //     ? TextOverflow.visible
+                                          //     : TextOverflow.ellipsis,
                                           propertyDetailController
                                                   .porpertyDetailsDataModel
                                                   .data
@@ -586,16 +591,16 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      propertyDetailController
-                                          .setsExpandedSubtitle();
+                                      // propertyDetailController
+                                      //     .setsExpandedSubtitle();
                                     },
                                     child: SizedBox(
                                       width: size.width * 0.8,
                                       child: Text(
-                                        overflow: propertyDetailController
-                                                .isExpandedSubtitle
-                                            ? TextOverflow.visible
-                                            : TextOverflow.ellipsis,
+                                        // overflow: propertyDetailController
+                                        //         .isExpandedSubtitle
+                                        //     ? TextOverflow.visible
+                                        //     : TextOverflow.ellipsis,
                                         propertyDetailController
                                                 .porpertyDetailsDataModel
                                                 .data
@@ -2344,7 +2349,7 @@ class _PropertyDetailsViewState extends State<PropertyDetailsView> {
                                 ).format(int.parse(propertyDetailsPage.porpertyDetailsDataModel.data?.pricing.toString() ?? ''))}"
                                 "\n📏 Size : ${propertyDetailsPage.porpertyDetailsDataModel.data?.size.toString()} SQFT"
                                 "\n\nProperty Link Here:"
-                                "\nhttps://www.raipurhomes.com/property-details/\n${propertyDetailsPage.porpertyDetailsDataModel.data?.titleSlug.toString()}-${propertyDetailsPage.porpertyDetailsDataModel.data?.serviceId.toString()}"),
+                                "\nhttps://www.raipurhomes.com/property-details/${propertyDetailsPage.porpertyDetailsDataModel.data?.titleSlug.toString()}-${propertyDetailsPage.porpertyDetailsDataModel.data?.serviceId.toString()}"),
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(

@@ -9,10 +9,13 @@ class BookMarkController extends ChangeNotifier {
   final apiService = NetworkApiServices();
 
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
 
   FavoriteAddModel _favoriteAddModel = FavoriteAddModel();
+
   FavoriteAddModel get favoriteAddModel => FavoriteAddModel();
+
   Future<void> addBookmark(String serviceID) async {
     var body = {
       "user_id": "${box.read("cust_id_raipurHomes")}",
@@ -30,6 +33,7 @@ class BookMarkController extends ChangeNotifier {
   }
 
   AllPropertyModel _allPropertyModel = AllPropertyModel();
+
   AllPropertyModel get allPropertyModel => _allPropertyModel;
 
   // Function to increase quantity for a specific item at index
@@ -57,7 +61,7 @@ class BookMarkController extends ChangeNotifier {
 
   Future<AllPropertyModel> getBookMarkedData() async {
     _isLoading = true;
-    notifyListeners();
+
     try {
       final response = await apiService.getGetApiResponse(false,
           "${AppUrl.baseUrl}${AppUrl.authEndPoints.getBookMarked}?user_id=${box.read('cust_id_raipurHomes').toString()}");

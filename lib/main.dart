@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fmraipuromes/constant/AppGlobleKeys.dart';
 import 'package:fmraipuromes/repository/counter_provider.dart';
 import 'package:fmraipuromes/repository/getFilterTools.dart';
 import 'package:fmraipuromes/repository/getImageFromUser.dart';
@@ -98,6 +99,7 @@ class MyApp extends StatelessWidget {
               create: (_) => PropertyDetailsViewController()),
         ],
         child: MaterialApp(
+          navigatorKey: AppGlobalKeys.navigatorKey,
           builder: (context, child) {
             final MediaQueryData data = MediaQuery.of(context);
             return MediaQuery(

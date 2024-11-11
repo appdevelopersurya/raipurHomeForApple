@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:fmraipuromes/Skeletons/GridSkeleton.dart';
 import 'package:fmraipuromes/Skeletons/ListViewSkelton.dart';
 import 'package:fmraipuromes/repository/contactFeatures.dart';
 import 'package:fmraipuromes/screens/SubPages/Explore/viewModel/exploreViewModel.dart';
@@ -126,17 +127,17 @@ class _ExploreViewState extends State<ExploreView>
         child: Scaffold(
           appBar: AppBar(
             flexibleSpace: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xFFffffff),
-                    Color(0xFFf3ef66),
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+                // decoration: const BoxDecoration(
+                //   gradient: LinearGradient(
+                //     colors: [
+                //       Color(0xFFffffff),
+                //       Color(0xFFf3ef66),
+                //     ],
+                //     begin: Alignment.topLeft,
+                //     end: Alignment.bottomRight,
+                //   ),
+                // ),
                 ),
-              ),
-            ),
             // backgroundColor: textColor5,
             elevation: 1,
             centerTitle: true,
@@ -229,48 +230,69 @@ class _ExploreViewState extends State<ExploreView>
                 ),
               ],
             ),
-            leading: InkWell(
-              onTap: () {
-                exploreViewController.toggleSize(false);
-                exploreViewController.sePlaceListClear();
-                exploreViewController.setIsPlaced(false);
-                Navigator.pop(context);
-              },
-              child: Icon(
-                Icons.arrow_back,
-                color: textColor2,
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 1, color: borderColor)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      exploreViewController.toggleSize(false);
+                      exploreViewController.sePlaceListClear();
+                      exploreViewController.setIsPlaced(false);
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: textColor2,
+                    ),
+                  ),
+                ),
               ),
             ),
             actions: [
-              InkWell(
-                onTap: () {
-                  if (exploreViewController.isExpandedSearch == false) {
-                    exploreViewController.toggleSize(true);
-                  } else {
-                    _fetchExploreProperty();
-                    exploreViewController.toggleSize(false);
-                  }
-                  _searchController.clear();
-                  exploreViewController.sePlaceListClear();
-                },
-                child: exploreViewController.isExpandedSearch
-                    ? Icon(
-                        Icons.close,
-                        color: textColor2,
-                      )
-                    : Icon(
-                        Icons.search,
-                        color: textColor2,
-                      ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 1, color: borderColor)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: InkWell(
+                      onTap: () {
+                        if (exploreViewController.isExpandedSearch == false) {
+                          exploreViewController.toggleSize(true);
+                        } else {
+                          _fetchExploreProperty();
+                          exploreViewController.toggleSize(false);
+                        }
+                        _searchController.clear();
+                        exploreViewController.sePlaceListClear();
+                      },
+                      child: exploreViewController.isExpandedSearch
+                          ? Icon(
+                              Icons.close,
+                              color: textColor2,
+                            )
+                          : Icon(
+                              Icons.search,
+                              color: textColor2,
+                            ),
+                    ),
+                  ),
+                ),
               ),
-              const Gap(10.0),
             ],
           ),
           body: exploreViewController.isLoading
               ? Shimmer.fromColors(
                   baseColor: Colors.grey.shade300,
                   highlightColor: Colors.grey.shade100,
-                  child: const ListViewBuilderSkeleton())
+                  child: const GridSkeleton())
               : ListView(
                   controller: _scrollController,
                   children: [
@@ -348,15 +370,21 @@ class _ExploreViewState extends State<ExploreView>
                     const Gap(10.0),
                     exploreViewController.allPropertyModel.data?.length == 0
                         ? Center(child: Lottie.asset("assets/gif/noData.json"))
-                        : ListView.builder(
+                        : GridView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 1,
+                              childAspectRatio: 0.625,
+                            ),
                             itemCount: exploreViewController
                                     .allPropertyModel.data?.length ??
                                 0,
                             itemBuilder: (context, index) {
                               return FadeInUp(
-                                child: FeaturedPropertyCardForHome(
+                                child: FeaturedPropertyGridCardForHome(
                                   onTapShare: () {
                                     Share.share(
                                         "🏡 Property Title : \n${exploreViewController.allPropertyModel.data?[index].title.toString()}"

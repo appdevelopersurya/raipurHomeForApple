@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-Color primaryColor = const Color(0xFFF4F4D9);
+// Color primaryColor = const Color(0xFFF4F4D9);
+Color primaryColor = Colors.white;
 Color primaryDarkColor = const Color(0xFF121212);
 
 // Color secondaryColor = const Color(0xFF1f3856);
-Color secondaryColor = const Color(0xFFbb9800);
-Color secondaryColor2 = const Color(0xFFc9a15c);
+Color secondaryColor = const Color(0xFFEE9F1E);
+Color secondaryColor2 = const Color(0xFFEBE189);
+// Color secondaryColor2 = const Color(0xFFc9a15c);
 Color secondaryDarkColor = const Color(0xFFDEF2FF);
 
 Color contentBgColor = const Color(0xFFB4C9E3);
@@ -34,5 +36,45 @@ Color warningColor = const Color(0xFFF79008);
 Color successColor = const Color(0xFF12B76A);
 Color errorColor = const Color(0xFFD65B5B);
 
+Color iconColor = const Color(0xFF09244B);
+
 Color hintColor = const Color(0xFFB4B4B4);
 Color borderColor = const Color(0xFF939393);
+
+LinearGradient defaultGradient = const LinearGradient(
+  colors: [
+    Color(0xFFffffff),
+    Color(0xFFf3ef66),
+  ],
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+);
+
+LinearGradient defaultGradient1 = const LinearGradient(
+  colors: [
+    Colors.white,
+    Colors.white,
+  ],
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+);
+
+LinearGradient defaultGradient2 = const LinearGradient(
+  colors: [
+    Color(0xFFF2BF61),
+    Color(0xFF80523E),
+  ],
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+);
+
+LinearGradient defaultGradient3 = const LinearGradient(
+  colors: [
+    Color(0xFFFFCB75),
+    Color(0xFFF9BA54),
+    Color(0xFFEE9F1E),
+    Color(0xFFEE9708),
+  ],
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+);

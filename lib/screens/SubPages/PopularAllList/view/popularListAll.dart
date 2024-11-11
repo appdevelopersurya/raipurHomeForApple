@@ -110,17 +110,17 @@ class _PopularAllListState extends State<PopularAllList> {
               widget.allListArgsModal.pageType == "Rent"
           ? AppBar(
               flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFffffff),
-                      Color(0xFFf3ef66),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                  // decoration: const BoxDecoration(
+                  //   gradient: LinearGradient(
+                  //     colors: [
+                  //       Color(0xFFffffff),
+                  //       Color(0xFFf3ef66),
+                  //     ],
+                  //     begin: Alignment.topLeft,
+                  //     end: Alignment.bottomRight,
+                  //   ),
+                  // ),
                   ),
-                ),
-              ),
               // backgroundColor: textColor5,
               elevation: 1,
               centerTitle: true,
@@ -150,28 +150,48 @@ class _PopularAllListState extends State<PopularAllList> {
                           .labelLarge!
                           .copyWith(color: textColor2),
                     ),
-              leading: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.arrow_back,
-                  color: textColor2,
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(width: 1, color: borderColor)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: textColor2,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               actions: [
                 widget.allListArgsModal.pageType == "allProperties"
                     ? Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, AppRoutes.filterNew);
-                          },
-                          child: SvgPicture.asset(
-                            "assets/svg/filterOn.svg",
-                            color: textColor2,
-                            height: 27,
-                            width: 27,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(width: 1, color: borderColor)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, AppRoutes.filterNew);
+                              },
+                              child: SvgPicture.asset(
+                                "assets/svg/filterOn.svg",
+                                color: textColor2,
+                                height: 27,
+                                width: 27,
+                              ),
+                            ),
                           ),
                         ),
                       )
@@ -327,7 +347,8 @@ class _PopularAllListState extends State<PopularAllList> {
                                         );
                                       },
                                     )
-                                  : popularLocationPropertyListViewModal.isLoading ==
+                                  : popularLocationPropertyListViewModal
+                                              .isLoading ==
                                           true
                                       ? Shimmer.fromColors(
                                           baseColor: Colors.grey.shade300,
@@ -344,11 +365,19 @@ class _PopularAllListState extends State<PopularAllList> {
                                               ? Center(
                                                   child: Lottie.asset(
                                                       "assets/gif/noData.json"))
-                                              : ListView.builder(
+                                              : GridView.builder(
                                                   shrinkWrap: true,
                                                   physics:
                                                       const BouncingScrollPhysics(),
-                                                  padding: EdgeInsets.zero,
+                                                  gridDelegate:
+                                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 2,
+                                                    mainAxisSpacing: 10,
+                                                    crossAxisSpacing: 10,
+                                                    childAspectRatio: 0.60,
+                                                  ),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   itemCount:
                                                       popularLocationPropertyListViewModal
                                                               .allPropertyModel
@@ -359,7 +388,7 @@ class _PopularAllListState extends State<PopularAllList> {
                                                       (context, index) {
                                                     return FadeInDown(
                                                         child:
-                                                            FeaturedPropertyCardForHome(
+                                                            FeaturedPropertyGridCardForHome(
                                                       onTapShare: () {
                                                         Share.share(
                                                             "🏡 Property Title : \n${popularLocationPropertyListViewModal.allPropertyModel.data?[index].title.toString()}"

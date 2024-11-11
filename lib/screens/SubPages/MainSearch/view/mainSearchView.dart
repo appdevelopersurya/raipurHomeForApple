@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fmraipuromes/Skeletons/ListViewSkelton.dart';
+import 'package:fmraipuromes/Skeletons/GridSkeleton.dart';
 import 'package:fmraipuromes/app/routes/routes.dart';
 import 'package:fmraipuromes/data/modal/passFilterModel.dart';
 import 'package:fmraipuromes/helper/GetStorageHelper.dart';
@@ -28,7 +27,10 @@ import '../../PopularLocationPropertyList/viewModal/popularLocationPropertyListV
 class MainFilter extends StatefulWidget {
   final PassFilterModel passFilterModel;
 
-  const MainFilter({super.key, required this.passFilterModel});
+  const MainFilter({
+    super.key,
+    required this.passFilterModel,
+  });
 
   @override
   State<MainFilter> createState() => _MainFilterState();
@@ -40,6 +42,7 @@ class _MainFilterState extends State<MainFilter> {
   var voiceText;
 
   filterDataCalling() async {
+    // id: 6, logLate: "", title: "Main Filter"
     var body;
     final filterController =
         Provider.of<GetFilterTools>(context, listen: false);
@@ -83,19 +86,21 @@ class _MainFilterState extends State<MainFilter> {
       body = {"current_area": "${widget.passFilterModel.id}"};
     } else {
       print("rent filter");
-      if (filterController.isVerified == 5) {
+      print(
+          "search input data final text===> ${filterController.searchKeyword.toString()}");
+      if (filterController.isVerified == "BUY") {
         body = {
-          "category": filterController.isVerified.toString() ?? "",
+          "category": filterController.isVerified == "RENT" ? "3" : "5" ?? "",
           "min_price": filterController.priceRangeValueBuy1.toString() ?? "",
           "max_price": filterController.priceRangeValueBuy2.toString() ?? "",
           // "current_area": "${widget.passFilterModel.id}" ?? "",
           "location": filterController.selectedAreas.length == 0
               ? ""
               : "${filterController.selectedAreas}",
-          "property_type": filterController.selectedPropertyType.length == 0
+          "type": filterController.selectedPropertyType.length == 0
               ? ""
               : "${filterController.selectedPropertyType}",
-          "type": filterController.selectedSubPropertyType.length == 0
+          "property_type": filterController.selectedSubPropertyType.length == 0
               ? ""
               : "${filterController.selectedSubPropertyType}",
           "builder": filterController.selectedByBuilder.length == 0
@@ -115,23 +120,23 @@ class _MainFilterState extends State<MainFilter> {
           "min_size": filterController.areaRangeValue1.toString() ?? "",
           "max_size": filterController.areaRangeValue2.toString() ?? "",
           "areaRangeKm1": filterController.areaRangeKm1.toString() ?? "",
-          "areaRangeKm2": filterController.areaRangeKm2.toString() ?? "",
+          "areaRangeKm2": filterController.disKm.toString() ?? "",
           "current_area": filterController.townId.toString() ?? "",
           "searchInput": filterController.searchKeyword.toString() ?? "",
         };
       } else {
         body = {
-          "category": filterController.isVerified.toString() ?? "",
-          "min_price": filterController.priceRangeValueRent1.toString() ?? "",
-          "max_price": filterController.priceRangeValueRent2.toString() ?? "",
+          "category": filterController.isVerified == "RENT" ? "3" : "5" ?? "",
+          "min_price": filterController.priceRangeValueBuy1.toString() ?? "",
+          "max_price": filterController.priceRangeValueBuy2.toString() ?? "",
           // "current_area": "${widget.passFilterModel.id}" ?? "",
           "location": filterController.selectedAreas.length == 0
               ? ""
               : "${filterController.selectedAreas}",
-          "property_type": filterController.selectedPropertyType.length == 0
+          "type": filterController.selectedPropertyType.length == 0
               ? ""
               : "${filterController.selectedPropertyType}",
-          "type": filterController.selectedSubPropertyType.length == 0
+          "property_type": filterController.selectedSubPropertyType.length == 0
               ? ""
               : "${filterController.selectedSubPropertyType}",
           "builder": filterController.selectedByBuilder.length == 0
@@ -151,7 +156,7 @@ class _MainFilterState extends State<MainFilter> {
           "min_size": filterController.areaRangeValue1.toString() ?? "",
           "max_size": filterController.areaRangeValue2.toString() ?? "",
           "areaRangeKm1": filterController.areaRangeKm1.toString() ?? "",
-          "areaRangeKm2": filterController.areaRangeKm2.toString() ?? "",
+          "areaRangeKm2": filterController.disKm.toString() ?? "",
           "current_area": filterController.townId.toString() ?? "",
           "searchInput": filterController.searchKeyword.toString() ?? "",
         };
@@ -188,317 +193,364 @@ class _MainFilterState extends State<MainFilter> {
     final filterController = Provider.of<GetFilterTools>(context);
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFFffffff),
-                Color(0xFFf3ef66),
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+    return WillPopScope(
+      onWillPop: () async {
+        if (widget.passFilterModel.routeFrom == "Self" ||
+            widget.passFilterModel.routeFrom != null) {
+          Navigator.pushNamed(context, AppRoutes.homeMain);
+        } else {
+          Navigator.pop(context);
+        }
+
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          flexibleSpace: Container(
+              // decoration: const BoxDecoration(
+              //   gradient: LinearGradient(
+              //     colors: [
+              //       Color(0xFFffffff),
+              //       Color(0xFFf3ef66),
+              //     ],
+              //     begin: Alignment.topLeft,
+              //     end: Alignment.bottomRight,
+              //   ),
+              // ),
+              ),
+          // backgroundColor: textColor5,
+          elevation: 1,
+          centerTitle: true,
+          title: Consumer<PopularLocationPropertyListViewModal>(
+            builder: (context, value, child) {
+              return CustomTextInputForSearch(
+                  controller: _searchController,
+                  hintText: 'Search filter....',
+                  icon: CupertinoIcons.search,
+                  keyboardType: TextInputType.text,
+                  readOnly: false,
+                  onTap: () {
+                    if (_searchController.text.isNotEmpty) {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.mainFilter,
+                        arguments: PassFilterModel(
+                            id: 4,
+                            logLate: _searchController.text.toString(),
+                            title: "Main Filter",
+                            routeFrom: "Self"),
+                      );
+                    }
+                  });
+            },
           ),
-        ),
-        // backgroundColor: textColor5,
-        elevation: 1,
-        centerTitle: true,
-        title: Consumer<PopularLocationPropertyListViewModal>(
-          builder: (context, value, child) {
-            return CustomTextInputForSearch(
-                controller: _searchController,
-                hintText: 'Search filter....',
-                icon: CupertinoIcons.search,
-                keyboardType: TextInputType.text,
-                readOnly: false,
-                onTap: () {
-                  if (_searchController.text.isNotEmpty) {
-                    Navigator.pushNamed(
-                      context,
-                      AppRoutes.mainFilter,
-                      arguments: PassFilterModel(
-                          id: 4,
-                          logLate: _searchController.text.toString(),
-                          title: "Main Filter"),
-                    );
-                  }
-                });
-          },
-        ),
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back,
-            color: textColor2,
-          ),
-        ),
-        actions: [
-          Padding(
+          leading: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, AppRoutes.filterNew);
-              },
-              child: SvgPicture.asset(
-                "assets/svg/filterOn.svg",
-                color: textColor2,
-                height: 27,
-                width: 27,
+            child: Container(
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(width: 1, color: borderColor)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    print("routefrom===> ${widget.passFilterModel.routeFrom}");
+                    if (widget.passFilterModel.routeFrom == "Self" ||
+                        widget.passFilterModel.routeFrom != null) {
+                      Navigator.pushNamed(context, AppRoutes.homeMain);
+                    } else {
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: textColor2,
+                  ),
+                ),
               ),
             ),
-          )
-        ],
-      ),
-      body: filterController.isLoading == true
-          ? Shimmer.fromColors(
-              baseColor: Colors.grey.shade300,
-              highlightColor: Colors.grey.shade50,
-              child: const ListViewBuilderSkeleton())
-          : filterController.allPropertyModel.data?.length == 0
-              ? Center(child: Lottie.asset("assets/gif/noData.json"))
-              : ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  itemCount:
-                      filterController.allPropertyModel.data?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    return FadeInUp(
-                      child: FeaturedPropertyCardForHome(
-                        onTapShare: () {
-                          Share.share(
-                              "🏡 Property Title : \n${filterController.allPropertyModel.data?[index].title.toString()}"
-                              "\n📍 Location : ${filterController.allPropertyModel.data?[index].jioLocation.toString()}"
-                              "\n ₹ Price : ${NumberFormat.currency(
-                            locale: 'HI',
-                            symbol: AppText.rupeeSymbol,
-                          ).format(int.parse(filterController.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
-                              "\n📏 Size : ${filterController.allPropertyModel.data?[index].size.toString()} SQFT"
-                              "\n\nDiscover this fantastic property! Located in a prime area, it offers excellent value with plenty of space to suit your needs. Click the link to learn more and share with your friends!"
-                              "\n\nCheck out through this link :"
-                              "\nhttps://www.raipurhomes.com/property-details/${filterController.allPropertyModel.data?[index].titleSlug.toString()}-${filterController.allPropertyModel.data?[index].serviceId.toString()}");
-                        },
-                        onTapCall: () async => await ContactFeatures()
-                            .launchCalling(
-                                context,
-                                filterController.allPropertyModel.adminDetails
-                                        ?.adminNumber
-                                        .toString() ??
-                                    ""),
-                        onTapWhatsapp: () async => await ContactFeatures()
-                            .launchWhatsapp(
-                                context,
-                                filterController.allPropertyModel.adminDetails
-                                        ?.adminWhatsappNumber
-                                        .toString() ??
-                                    "",
-                                "Hii i am interested in this property"
-                                "\n\n🏡 Property Title : \n${filterController.allPropertyModel.data?[index].title.toString()}"
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 1, color: borderColor)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, AppRoutes.filterNew);
+                    },
+                    child: SvgPicture.asset(
+                      "assets/svg/filterOn.svg",
+                      color: textColor2,
+                      height: 24,
+                      width: 24,
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+        body: filterController.isLoading == true
+            ? Shimmer.fromColors(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade50,
+                child: const GridSkeleton())
+            : filterController.allPropertyModel.data?.length == 0
+                ? Center(child: Lottie.asset("assets/gif/noData.json"))
+                : GridView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 0.60,
+                    ),
+                    padding: const EdgeInsets.all(8.0),
+                    itemCount:
+                        filterController.allPropertyModel.data?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return FadeInUp(
+                        child: FeaturedPropertyGridCardForHome(
+                          onTapShare: () {
+                            Share.share(
+                                "🏡 Property Title : \n${filterController.allPropertyModel.data?[index].title.toString()}"
                                 "\n📍 Location : ${filterController.allPropertyModel.data?[index].jioLocation.toString()}"
                                 "\n ₹ Price : ${NumberFormat.currency(
-                                  locale: 'HI',
-                                  symbol: AppText.rupeeSymbol,
-                                ).format(int.parse(filterController.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
+                              locale: 'HI',
+                              symbol: AppText.rupeeSymbol,
+                            ).format(int.parse(filterController.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
                                 "\n📏 Size : ${filterController.allPropertyModel.data?[index].size.toString()} SQFT"
-                                "\n\nProperty Link Here:"
-                                "\nhttps://www.raipurhomes.com/property-details/${filterController.allPropertyModel.data?[index].titleSlug.toString()}-${filterController.allPropertyModel.data?[index].serviceId.toString()}"),
-                        onTap: () => Navigator.pushNamed(
-                            context, AppRoutes.propertyDetailView,
-                            arguments: filterController
-                                .allPropertyModel.data?[index].serviceId
-                                .toString()),
-                        views: filterController
-                                .allPropertyModel.data?[index].visitCount
-                                .toString() ??
-                            "",
-                        size: size,
-                        forSale: filterController.allPropertyModel.data?[index]
-                                .getapiCategories?.categoriesName
-                                .toString() ??
-                            "",
-                        type: filterController.allPropertyModel.data?[index]
-                                .getapiPropertySubType?.name
-                                .toString() ??
-                            "",
-                        price: filterController
-                                .allPropertyModel.data?[index].pricing
-                                .toString() ??
-                            "",
-                        title: filterController
-                                .allPropertyModel.data?[index].title
-                                .toString() ??
-                            "",
-                        address: filterController
-                                .allPropertyModel.data?[index].address
-                                .toString() ??
-                            "",
-                        imageList: filterController
-                                .allPropertyModel.data?[index].getapiimages ??
-                            [],
-                        featureImage: filterController
-                                .allPropertyModel.data?[index].featureImage ??
-                            "",
-                        priceType: filterController
-                                .allPropertyModel.data?[index].pricetype
-                                .toString() ??
-                            "",
-                        constructionSize: filterController
-                                .allPropertyModel.data?[index].size
-                                .toString() ??
-                            "",
-                        propertyFace: parsePropertyFace(filterController
-                                .allPropertyModel.data?[index].propertyface
-                                .toString() ??
-                            ""),
-                        openSide: filterController
-                                .allPropertyModel.data?[index].openside
-                                .toString() ??
-                            "",
-                        onTapFavorite: () {
-                          if (box.read("access_token_raipurHomes") == "") {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: Container(
-                                    constraints: BoxConstraints.loose(
-                                        const Size.fromHeight(400)),
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: FadeInDown(
-                                            child: Stack(
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 50,
-                                                  backgroundColor:
-                                                      secondaryColor,
-                                                  child: CircleAvatar(
-                                                    backgroundImage:
-                                                        const AssetImage(
-                                                      "assets/icons/contact.png",
-                                                    ),
+                                "\n\nDiscover this fantastic property! Located in a prime area, it offers excellent value with plenty of space to suit your needs. Click the link to learn more and share with your friends!"
+                                "\n\nCheck out through this link :"
+                                "\nhttps://www.raipurhomes.com/property-details/${filterController.allPropertyModel.data?[index].titleSlug.toString()}-${filterController.allPropertyModel.data?[index].serviceId.toString()}");
+                          },
+                          onTapCall: () async => await ContactFeatures()
+                              .launchCalling(
+                                  context,
+                                  filterController.allPropertyModel.adminDetails
+                                          ?.adminNumber
+                                          .toString() ??
+                                      ""),
+                          onTapWhatsapp: () async => await ContactFeatures()
+                              .launchWhatsapp(
+                                  context,
+                                  filterController.allPropertyModel.adminDetails
+                                          ?.adminWhatsappNumber
+                                          .toString() ??
+                                      "",
+                                  "Hii i am interested in this property"
+                                  "\n\n🏡 Property Title : \n${filterController.allPropertyModel.data?[index].title.toString()}"
+                                  "\n📍 Location : ${filterController.allPropertyModel.data?[index].jioLocation.toString()}"
+                                  "\n ₹ Price : ${NumberFormat.currency(
+                                    locale: 'HI',
+                                    symbol: AppText.rupeeSymbol,
+                                  ).format(int.parse(filterController.allPropertyModel.data?[index].pricing.toString() ?? ''))}"
+                                  "\n📏 Size : ${filterController.allPropertyModel.data?[index].size.toString()} SQFT"
+                                  "\n\nProperty Link Here:"
+                                  "\nhttps://www.raipurhomes.com/property-details/${filterController.allPropertyModel.data?[index].titleSlug.toString()}-${filterController.allPropertyModel.data?[index].serviceId.toString()}"),
+                          onTap: () => Navigator.pushNamed(
+                              context, AppRoutes.propertyDetailView,
+                              arguments: filterController
+                                  .allPropertyModel.data?[index].serviceId
+                                  .toString()),
+                          views: filterController
+                                  .allPropertyModel.data?[index].visitCount
+                                  .toString() ??
+                              "",
+                          size: size,
+                          forSale: filterController.allPropertyModel
+                                  .data?[index].getapiCategories?.categoriesName
+                                  .toString() ??
+                              "",
+                          type: filterController.allPropertyModel.data?[index]
+                                  .getapiPropertySubType?.name
+                                  .toString() ??
+                              "",
+                          price: filterController
+                                  .allPropertyModel.data?[index].pricing
+                                  .toString() ??
+                              "",
+                          title: filterController
+                                  .allPropertyModel.data?[index].title
+                                  .toString() ??
+                              "",
+                          address: filterController
+                                  .allPropertyModel.data?[index].address
+                                  .toString() ??
+                              "",
+                          imageList: filterController
+                                  .allPropertyModel.data?[index].getapiimages ??
+                              [],
+                          featureImage: filterController
+                                  .allPropertyModel.data?[index].featureImage ??
+                              "",
+                          priceType: filterController
+                                  .allPropertyModel.data?[index].pricetype
+                                  .toString() ??
+                              "",
+                          constructionSize: filterController
+                                  .allPropertyModel.data?[index].size
+                                  .toString() ??
+                              "",
+                          propertyFace: parsePropertyFace(filterController
+                                  .allPropertyModel.data?[index].propertyface
+                                  .toString() ??
+                              ""),
+                          openSide: filterController
+                                  .allPropertyModel.data?[index].openside
+                                  .toString() ??
+                              "",
+                          onTapFavorite: () {
+                            if (box.read("access_token_raipurHomes") == "") {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    child: Container(
+                                      constraints: BoxConstraints.loose(
+                                          const Size.fromHeight(400)),
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: FadeInDown(
+                                              child: Stack(
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: 50,
                                                     backgroundColor:
-                                                        primaryColor,
-                                                    radius: 48,
+                                                        secondaryColor,
+                                                    child: CircleAvatar(
+                                                      backgroundImage:
+                                                          const AssetImage(
+                                                        "assets/icons/contact.png",
+                                                      ),
+                                                      backgroundColor:
+                                                          primaryColor,
+                                                      radius: 48,
+                                                    ),
                                                   ),
-                                                ),
-                                                Positioned(
-                                                  bottom: 0,
-                                                  right: 0,
-                                                  child: CircleAvatar(
-                                                      radius: 18,
-                                                      child: Icon(
-                                                        Icons.close,
-                                                        color: errorColor,
-                                                        size: 18,
-                                                      )),
-                                                )
-                                              ],
+                                                  Positioned(
+                                                    bottom: 0,
+                                                    right: 0,
+                                                    child: CircleAvatar(
+                                                        radius: 18,
+                                                        child: Icon(
+                                                          Icons.close,
+                                                          color: errorColor,
+                                                          size: 18,
+                                                        )),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        const Gap(10),
-                                        FadeInRight(
-                                          child: Text(
-                                            "You're currently using a guest account. Please log in.",
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelMedium!
-                                                .copyWith(
-                                                    fontWeight:
-                                                        FontWeight.w600),
+                                          const Gap(10),
+                                          FadeInRight(
+                                            child: Text(
+                                              "You're currently using a guest account. Please log in.",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                            ),
                                           ),
-                                        ),
-                                        FadeInLeft(
-                                          child: Text(
-                                            textAlign: TextAlign.center,
-                                            'Log in to enjoy all the features and a customized experience.',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelSmall!
-                                                .copyWith(color: subTitleColor),
-                                          ),
-                                        ),
-                                        const Gap(20),
-                                        FadeInDown(
-                                          child: CustomButton(
-                                              onTap: () => Navigator
-                                                      .pushNamedAndRemoveUntil(
-                                                    context,
-                                                    AppRoutes.loginNumber,
-                                                    (route) => false,
-                                                  ),
-                                              title: "Yes, Login"),
-                                        ),
-                                        const Gap(10),
-                                        FadeInUp(
-                                          child: TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context),
+                                          FadeInLeft(
                                             child: Text(
                                               textAlign: TextAlign.center,
-                                              'Not Now',
+                                              'Log in to enjoy all the features and a customized experience.',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelSmall!
-                                                  .copyWith(color: errorColor),
+                                                  .copyWith(
+                                                      color: subTitleColor),
                                             ),
                                           ),
-                                        )
-                                      ],
+                                          const Gap(20),
+                                          FadeInDown(
+                                            child: CustomButton(
+                                                onTap: () => Navigator
+                                                        .pushNamedAndRemoveUntil(
+                                                      context,
+                                                      AppRoutes.loginNumber,
+                                                      (route) => false,
+                                                    ),
+                                                title: "Yes, Login"),
+                                          ),
+                                          const Gap(10),
+                                          FadeInUp(
+                                            child: TextButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text(
+                                                textAlign: TextAlign.center,
+                                                'Not Now',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelSmall!
+                                                    .copyWith(
+                                                        color: errorColor),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            );
-                          } else {
-                            filterController.setIsFav(
-                                filterController
-                                        .allPropertyModel.data?[index].serviceId
-                                        .toString() ??
-                                    "",
-                                index);
-                          }
-                        },
-                        isLoading: filterController
-                            .allPropertyModel.data?[index].loading,
-                        isFavorite: filterController.allPropertyModel
-                                    .data?[index].getBookMarkedProperty !=
-                                null
-                            ? true
-                            : false,
-                        subType: filterController.allPropertyModel.data?[index]
-                                .getapiPropertyType?.name
-                                .toString() ??
-                            "",
-                        floorType: filterController
-                                .allPropertyModel.data?[index].floortype
-                                .toString() ??
-                            "",
-                        flatType: filterController
-                                .allPropertyModel.data?[index].flattype
-                                .toString() ??
-                            "",
-                        propertyInterior: filterController
-                                .allPropertyModel.data?[index].propertyinterior
-                                .toString() ??
-                            "",
-                      ),
-                    );
-                  },
-                ),
+                                  );
+                                },
+                              );
+                            } else {
+                              filterController.setIsFav(
+                                  filterController.allPropertyModel.data?[index]
+                                          .serviceId
+                                          .toString() ??
+                                      "",
+                                  index);
+                            }
+                          },
+                          isLoading: filterController
+                              .allPropertyModel.data?[index].loading,
+                          isFavorite: filterController.allPropertyModel
+                                      .data?[index].getBookMarkedProperty !=
+                                  null
+                              ? true
+                              : false,
+                          subType: filterController.allPropertyModel
+                                  .data?[index].getapiPropertyType?.name
+                                  .toString() ??
+                              "",
+                          floorType: filterController
+                                  .allPropertyModel.data?[index].floortype
+                                  .toString() ??
+                              "",
+                          flatType: filterController
+                                  .allPropertyModel.data?[index].flattype
+                                  .toString() ??
+                              "",
+                          propertyInterior: filterController.allPropertyModel
+                                  .data?[index].propertyinterior
+                                  .toString() ??
+                              "",
+                        ),
+                      );
+                    },
+                  ),
+      ),
     );
   }
 }
