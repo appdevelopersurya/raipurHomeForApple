@@ -587,7 +587,7 @@ class _FilterPageState extends State<FilterPage> {
             children: [
               Expanded(
                   child: Padding(
-                padding: const EdgeInsets.fromLTRB(5.0, 40.0, 10.0, 8.0),
+                padding: const EdgeInsets.fromLTRB(5.0, 30.0, 10.0, 8.0),
                 child: Row(
                   children: [
                     Padding(
@@ -725,12 +725,20 @@ class _FilterPageState extends State<FilterPage> {
                                 )
                               : InkWell(
                                   onTap: () {
-                                    homeViewController.checkPermission();
-                                    _searchController.text = homeViewController
-                                        .address
-                                        .replaceAll(",", "");
-                                    filterController.setSearchKeyword(
-                                        _searchController.text);
+                                    homeViewController.checkPermission().then(
+                                      (value) {
+                                        String fullAddress = value.toString();
+                                        String extractedAddress = fullAddress
+                                            .split("Address: ")[1]
+                                            .trim()
+                                            .split(",")
+                                            .join("");
+                                        _searchController.text =
+                                            extractedAddress.toString();
+                                        filterController.setSearchKeyword(
+                                            _searchController.text);
+                                      },
+                                    );
                                   },
                                   child: Row(
                                     mainAxisAlignment:

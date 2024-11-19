@@ -144,7 +144,7 @@ class Formatter {
 
     // Generate prices from start to the smaller of maxPrice or 10000
     for (double price = start;
-        price <= maxPrice && price <= 10000;
+        price <= maxPrice && price <= 30000;
         price += interval) {
       priceList.add(PriceModel(
         id: id++,
@@ -153,12 +153,12 @@ class Formatter {
       ));
     }
 
-    // Ensure 10000 is included if maxPrice allows it
-    if (maxPrice >= 10000) {
+// Ensure 10000 is included if maxPrice allows it
+    if (maxPrice >= maxPrice) {
       priceList.add(PriceModel(
         id: id,
-        title: "10000 +", // Explicitly add 10000
-        actualPrice: 10000,
+        title: "$maxPrice +", // Explicitly add 10000
+        actualPrice: maxPrice.toDouble(),
       ));
     }
 
@@ -182,7 +182,7 @@ class Formatter {
 
     // Generate prices from start to the smaller of maxPrice or 10000
     for (double price = start;
-        price <= maxPrice && price <= 10000;
+        price <= maxPrice && price <= 30000;
         price += interval) {
       priceList.add(PriceModel(
         id: id++,
@@ -192,11 +192,11 @@ class Formatter {
     }
 
     // Ensure 10000 is included if maxPrice allows it
-    if (maxPrice >= 10000) {
+    if (maxPrice >= maxPrice) {
       priceList.add(PriceModel(
         id: id,
-        title: "10000 +", // Explicitly add 10000
-        actualPrice: 10000,
+        title: "$maxPrice +", // Explicitly add 10000
+        actualPrice: maxPrice.toDouble(),
       ));
     }
 

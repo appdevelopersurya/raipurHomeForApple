@@ -709,7 +709,7 @@ class _HomeViewState extends State<HomeView> {
                                                       padding:
                                                           const EdgeInsets.all(
                                                               16.0),
-                                                      child: Column(
+                                                      child: const Column(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
                                                                 .center,
@@ -876,7 +876,8 @@ class _HomeViewState extends State<HomeView> {
                                                 .whenComplete(
                                                     () => _firstLoad());
                                           },
-                                          icon: Icon(Icons.arrow_right_alt))
+                                          icon:
+                                              const Icon(Icons.arrow_right_alt))
                                     ],
                                   ),
                                 )
@@ -903,7 +904,7 @@ class _HomeViewState extends State<HomeView> {
                                             BoxShadow(
                                               color: Colors.grey.shade300,
                                               blurRadius: 2,
-                                              offset: Offset(0, 1),
+                                              offset: const Offset(0, 1),
                                             )
                                           ]),
                                       padding: const EdgeInsets.all(16.0),
@@ -1377,7 +1378,6 @@ class _HomeViewState extends State<HomeView> {
                                   },
                                 )
                               : const Offstage(),
-
                           FadeInLeft(
                               child: const HomeTitlesCenterHeading(
                             title: "CONSTRUCTION WITH RAIPUR HOMES",
@@ -1388,7 +1388,7 @@ class _HomeViewState extends State<HomeView> {
                               onTap: () {
                                 ContactFeatures().gotoRaipurBuilder(
                                     context,
-                                    "https://www.construction.raipurhomes.com/",
+                                    "https://construction.raipurhomes.com/",
                                     "Construction Site");
                               },
                               child: ClipRRect(
@@ -1398,7 +1398,7 @@ class _HomeViewState extends State<HomeView> {
                                       "https://www.raipurhomes.com/public/construcation%20with%20raipur%20homes.webp",
                                   fit: BoxFit.cover,
                                   errorWidget: (context, url, error) {
-                                    return Icon(
+                                    return const Icon(
                                         Icons.image_not_supported_outlined);
                                   },
                                 ),
@@ -1415,7 +1415,7 @@ class _HomeViewState extends State<HomeView> {
                               onTap: () {
                                 ContactFeatures().gotoRaipurBuilder(
                                     context,
-                                    "http://interior.raipurhomes.com/",
+                                    "https://interior.raipurhomes.com/",
                                     "Interior Site");
                               },
                               child: ClipRRect(
@@ -1425,7 +1425,7 @@ class _HomeViewState extends State<HomeView> {
                                       "https://www.raipurhomes.com/public/interior%20with%20raipur%20homes.webp",
                                   fit: BoxFit.cover,
                                   errorWidget: (context, url, error) {
-                                    return Icon(
+                                    return const Icon(
                                         Icons.image_not_supported_outlined);
                                   },
                                 ),
