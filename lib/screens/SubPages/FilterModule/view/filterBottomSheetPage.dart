@@ -1827,6 +1827,11 @@ void _showVoiceSpeedDialog(BuildContext context, SpeechToText speechToText) {
     },
   ).whenComplete(() {
     speechToText.stop(); // Stop speech-to-text when dialog is closed
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (context.mounted) {
+        (context as Element).markNeedsBuild(); // Ensures UI rebuild
+      }
+    });
   });
 }
 
@@ -1835,7 +1840,7 @@ Container searchBar(
     TextEditingController searchController,
     dynamic voiceText,
     SpeechToText speechToText) {
-  final LayerLink _layerLink = LayerLink();
+  final LayerLink layerLink = LayerLink();
   return Container(
     alignment: Alignment.center,
     height: 40,
@@ -1852,7 +1857,7 @@ Container searchBar(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: CompositedTransformTarget(
-                  link: _layerLink,
+                  link: layerLink,
                   child: Autocomplete<String>(
                     optionsBuilder: (TextEditingValue textEditingValue) {
                       if (textEditingValue.text.isEmpty) {
@@ -1905,7 +1910,7 @@ Container searchBar(
                     optionsViewOpenDirection: OptionsViewOpenDirection.down,
                     optionsViewBuilder: (context, onSelected, options) {
                       return CompositedTransformFollower(
-                        link: _layerLink,
+                        link: layerLink,
                         showWhenUnlinked: false,
                         offset: const Offset(-26, 35),
                         child: Padding(
@@ -1961,14 +1966,14 @@ Container searchBar(
                         if (kDebugMode) {
                           print("Voice recognized: ${result.recognizedWords}");
                         }
-                        if (searchController.text.isNotEmpty) {
-                          voiceText = voiceText + " " + result.recognizedWords;
-                          searchController.text = voiceText;
-                        } else {
-                          // handle else if needed
-                        }
-                        voiceText = result.recognizedWords;
-                        searchController.text = voiceText;
+                        context
+                            .read<GetFilterTools>()
+                            .updateVoiceText(result.recognizedWords);
+                        searchController.text =
+                            context.read<GetFilterTools>().voiceText;
+                        context
+                            .read<GetFilterTools>()
+                            .setSearchKeyword(searchController.text);
                       },
                     );
                   }

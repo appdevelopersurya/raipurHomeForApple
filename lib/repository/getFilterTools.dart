@@ -612,4 +612,13 @@ class GetFilterTools extends ChangeNotifier {
     _searchKeyword = value;
     notifyListeners();
   }
+
+  String _voiceText = '';
+
+  String get voiceText => _voiceText;
+
+  void updateVoiceText(String newVoiceText) {
+    _voiceText = newVoiceText;
+    notifyListeners(); // Notify consumers about the change
+  }
 }
